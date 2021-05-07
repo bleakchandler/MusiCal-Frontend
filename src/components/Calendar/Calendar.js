@@ -10,7 +10,6 @@ import moment from "moment";
 import BuildCalendar from "./BuildCalendar";
 import Header from "./CalendarHeader";
 import { useDataLayerValue } from "../DataLayer.js";
-// import SongRow from "../SongRow/SongRow.js";
 import Async from "react-async";
 import "./Album Modal/SeeAlbumInfoModal.js";
 
@@ -24,6 +23,7 @@ function Calendar({
   newRandomAlbum,
   hideModal,
   refresh,
+  rerender,
 }) {
   const [{ albums, albumTracks }, dispatch] = useDataLayerValue();
   const [calendar, setCalendar] = useState([]);
@@ -36,8 +36,6 @@ function Calendar({
   const [dailyAlbumSpotifyLink, setDailyAlbumSpotifyLink] = useState("");
   const [dailyAlbumReleaseDate, setDailyAlbumReleaseDate] = useState("");
   const userDays = currentDaysData.map((a) => a.date);
-
-  // const loadJson = albumTracks;
 
   useEffect(() => {
     setCalendar(BuildCalendar(value));
@@ -94,13 +92,6 @@ function Calendar({
   }
 
   function chooseRandomAlbum() {
-    console.log(albums);
-    console.log("BITCH", albumTracks.items);
-
-    // setDailyAlbumTracks(albums);
-    // albumTracks.items.map((test) =>
-    //   setDailyAlbumTracks(test)
-    // );
     albums?.albums.items.map((album) => setDailyAlbum(album));
     albums?.albums.items.map((album) => setDailyAlbumArt(album.images[0].url));
     albums?.albums.items.map((album) =>
@@ -114,11 +105,9 @@ function Calendar({
       setDailyAlbumReleaseDate(album.release_date)
     );
   }
-  // console.log(albumTracks);
 
   function setDailyAlbumBackendCheck() {
     const d = moment().format("YYYY-MM-DD");
-    // console.log("albumTracks.length", albumTracks.length)
     if (userDays.length !== 0) {
       userDays.indexOf(d) === -1
         ? setTracksAndAlbumBackendHelper()
@@ -128,7 +117,6 @@ function Calendar({
 
   function setTracksAndAlbumBackendHelper() {
     setDailyAlbumBackend();
-    setDailyAlbumTracksBackend(); 
   }
 
   useEffect(() => {
@@ -181,27 +169,6 @@ function Calendar({
       .then((data) => setRerender(data));
   }
 
-  function setDailyAlbumTracksBackend() {
-    console.log("did this fsdf", albumTracks);
-    for (let i = 0, l = (albumTracks.items).length; i < l; i++) {
-      // console.log("did this work");
-      fetch(`http://localhost:3000/songs`, {
-        method: "POST",
-        body: JSON.stringify({
-          title: albumTracks.items[i].name,
-          artist: albumTracks.items[i].artists[0].name,
-          album_id: 6,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-        .then((r) => r.json())
-        .then((data) => setRerender(data));
-    }
-  }
-
   function handleAlbumClick(day) {
     setValue(day);
     showModal();
@@ -209,10 +176,10 @@ function Calendar({
   }
 
   if (dailyAlbum.length == 0 && albumTracks != null) {
-    console.log(albumTracks)
+    console.log(albumTracks);
     chooseRandomAlbum();
     return <span>Loading...</span>;
-  } else console.log(albumTracks);
+  } else
   return (
     <div className="calendar">
       <Header value={value} setValue={setValue} />

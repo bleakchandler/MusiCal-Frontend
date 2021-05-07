@@ -15,6 +15,7 @@ function Player({
   newRandomAlbum,
   generateNewRandomAlbum,
   refresh,
+  rerender
 }) {
   const [currentDayID, setCurrentDayID] = useState([]);
   const userDays = currentDaysData.map((a) => a.date);
@@ -77,6 +78,7 @@ function Player({
         <div className="player__body">
           <NavBar />
           <Calendar
+            rerender={rerender}
             spotify={spotify}
             todaysDate={todaysDate}
             currentDayID={currentDayID}
@@ -87,11 +89,9 @@ function Player({
             newRandomAlbum={newRandomAlbum}
             hideModal={hideModal}
             refresh={refresh}
-            // albumTracks={albumTracks}
           />
         </div>
         <SeeAlbumInfoModal
-          // albumTracks={albumTracks}
           showModal={showModal}
           hideModal={hideModal}
           isOpen={isOpen}

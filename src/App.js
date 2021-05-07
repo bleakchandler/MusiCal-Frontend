@@ -16,14 +16,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Calendar from "./components/Calendar/Calendar.js";
 import AlbumFormModal from "./components/Calendar/Album Modal/SeeAlbumInfoModal";
 
-// import logo from "./logo.svg";
-// import Body from "./components/Body/Body.js";
-// import NavBar from "./components/NavBar/Navbar";
-// import { BrowserRouter, Switch, Route } from "react-router-dom";
-// import Landing from "./components/Landing/Landing.js";
-// import Async from "react-async";
-// console.log("date test", new Date());
-
 const spotify = new SpotifyWebApi();
 
 function App() {
@@ -184,6 +176,7 @@ function App() {
         <div className="App">
           {token ? (
             <Player
+              rerender={rerender}
               spotify={spotify}
               todaysDate={todaysDate}
               currentDaysData={currentDaysData}

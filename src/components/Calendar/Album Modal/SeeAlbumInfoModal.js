@@ -16,6 +16,29 @@ const AlbumFormModal = ({
   generateNewRandomAlbum,
   currentDayID,
 }) => {
+  const [{ albumTracks }, dispatch] = useDataLayerValue();
+
+  useEffect(() => {
+    if (albumInfoForModalForm != 0 && albumInfoForModalForm.day_id === currentDayID) {
+      for (let i = 0, l = albumTracks.items.length; i < l; i++) {
+        fetch(`http://localhost:3000/songs`, {
+          method: "POST",
+          body: JSON.stringify({
+            title: albumTracks.items[i].name,
+            artist: albumTracks.items[i].artists[0].name,
+            album_id: albumInfoForModalForm.id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        })
+          .then((r) => r.json())
+          .then((data) => setRerender(data));
+      }
+    }
+  }, [albumInfoForModalForm]);
+
   function openSpotifyLink() {
     window.open(albumInfoForModalForm.spotify_link);
   }
@@ -34,24 +57,6 @@ const AlbumFormModal = ({
       return true;
     }
   }
-
-  // const arrayOfAlbumTracks = []
-
-  // function displayAlbumTracks() {
-    // if (albumTracks != 0) {
-    //   for (let i = 0, l = albumTracks.items.length; i < l; i++) {
-    //     // console.log(albumTracks)
-    //     arrayOfAlbumTracks.push(<li>{albumTracks.items[i].name}</li>);
-    //   }
-    // }
-  // }
-
-  // function doesAlbumMatchAlbumTracks() {
-  //   // console.log(albumInfoForModalForm)
-
-  // }
-
-  // doesAlbumMatchAlbumTracks();
 
   return (
     <>
