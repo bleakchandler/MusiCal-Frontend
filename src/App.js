@@ -107,11 +107,18 @@ function App() {
       spotify
         .searchAlbums(getRandomSearch(), { limit: 1, offset: randomOffset })
         .then((albums) => {
-          setAlbumTracks(albums.albums.items[0].id)
-          dispatch({
-            type: "SET_ALBUMS",
-            albums,
-          });
+          spotify
+            .getAlbumTracks(albums.albums.items[0].id)
+            .then((albumTracks) => {
+              dispatch({
+                type: "SET_ALBUM_TRACKS",
+                albumTracks,
+              });
+              dispatch({
+                type: "SET_ALBUMS",
+                albums,
+              });
+            });
         });
 
       // console.log("the random song is", getRandomSearch());
@@ -127,27 +134,26 @@ function App() {
     }
   }, []);
 
-  function setAlbumTracks(albumInfo) {
-    spotify
-      .getAlbumTracks(albumInfo)
-      .then((albumTracks) => {
-        dispatch({
-          type: "SET_ALBUM_TRACKS",
-          albumTracks,
-        });
-      });
-  }
-
   function generateNewRandomAlbum() {
     spotify
       .searchAlbums(getRandomSearch(), { limit: 1, offset: randomOffset })
       .then((albums) => {
-        setAlbumTracks(albums.albums.items[0].id);
+        spotify
+          .getAlbumTracks(albums.albums.items[0].id)
+          .then((albumTracks) => {
+            dispatch({
+              type: "SET_ALBUM_TRACKS",
+              albumTracks,
+            });
+          });
+
+        // setAlbumTracks(albums.albums.items[0].id);
         dispatch({
           type: "SET_ALBUMS",
           albums,
         });
       });
+
     doRefresh((prev) => prev + 1);
   }
 

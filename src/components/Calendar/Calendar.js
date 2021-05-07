@@ -37,7 +37,7 @@ function Calendar({
   const [dailyAlbumReleaseDate, setDailyAlbumReleaseDate] = useState("");
   const userDays = currentDaysData.map((a) => a.date);
 
-  const loadJson = "test";
+  // const loadJson = albumTracks;
 
   useEffect(() => {
     setCalendar(BuildCalendar(value));
@@ -49,8 +49,6 @@ function Calendar({
       dailyAlbumTitle.length > 0 &&
       dailyAlbumArtist.length > 0 &&
       dailyAlbumArt.length > 0
-      // &&
-      // dailyAlbumTracks.length > 0
     ) {
       setDailyAlbumBackendCheck();
     }
@@ -97,11 +95,11 @@ function Calendar({
 
   function chooseRandomAlbum() {
     console.log(albums);
-    // console.log(albumTracks);
-// 
-    // console.log(albumTracks);
-    // albumTracks?.albumTracks.items.map((albumTracks) =>
-    //   setDailyAlbumTracks(albumTracks)
+    console.log("BITCH", albumTracks.items);
+
+    // setDailyAlbumTracks(albums);
+    // albumTracks.items.map((test) =>
+    //   setDailyAlbumTracks(test)
     // );
     albums?.albums.items.map((album) => setDailyAlbum(album));
     albums?.albums.items.map((album) => setDailyAlbumArt(album.images[0].url));
@@ -130,7 +128,7 @@ function Calendar({
 
   function setTracksAndAlbumBackendHelper() {
     setDailyAlbumBackend();
-    // setDailyAlbumTracksBackend();
+    setDailyAlbumTracksBackend(); 
   }
 
   useEffect(() => {
@@ -183,26 +181,26 @@ function Calendar({
       .then((data) => setRerender(data));
   }
 
-  // function setDailyAlbumTracksBackend() {
-  //   console.log("did this fsdf", albumTracks);
-  //   for (let i = 0, l = albumTracks.length; i < l; i++) {
-  //     console.log("did this work");
-  //     fetch(`http://localhost:3000/songs`, {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         title: albumTracks.items[i].name,
-  //         // artist: albumTracks.items[i].artists[0].name,
-  //         album_id: 6,
-  //       }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //       },
-  //     })
-  //       .then((r) => r.json())
-  //       .then((data) => setRerender(data));
-  //   }
-  // }
+  function setDailyAlbumTracksBackend() {
+    console.log("did this fsdf", albumTracks);
+    for (let i = 0, l = (albumTracks.items).length; i < l; i++) {
+      // console.log("did this work");
+      fetch(`http://localhost:3000/songs`, {
+        method: "POST",
+        body: JSON.stringify({
+          title: albumTracks.items[i].name,
+          artist: albumTracks.items[i].artists[0].name,
+          album_id: 6,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((r) => r.json())
+        .then((data) => setRerender(data));
+    }
+  }
 
   function handleAlbumClick(day) {
     setValue(day);
@@ -210,46 +208,39 @@ function Calendar({
     getAlbumInfoForModal(day);
   }
 
-  if (dailyAlbum.length == 0) {
+  if (dailyAlbum.length == 0 && albumTracks != null) {
+    console.log(albumTracks)
     chooseRandomAlbum();
-  }
-
-  <Async promiseFn={loadJson}>
-    {({ data, error, isLoading }) => {
-      if (isLoading) return "Loading...";
-      if (error) return error.message;
-      if (data)
-        return (
-          <div className="calendar">
-            <Header value={value} setValue={setValue} />
-            <div className="body">
-              <div className="day-names">
-                {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
-                  <div className="week">{d}</div>
-                ))}
-              </div>
-              {calendar.map((week) => (
-                <div classname="week">
-                  {week.map((day) => (
-                    <div className="day" onClick={() => handleAlbumClick(day)}>
-                      <div className={dayStyles(day)}>
-                        {dailyAlbumImage(day)}
-                        <div class="numberCircle"></div>
-                        <div class="dayNumber">
-                          {day.format("D").toString()}
-                          <div />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+    return <span>Loading...</span>;
+  } else console.log(albumTracks);
+  return (
+    <div className="calendar">
+      <Header value={value} setValue={setValue} />
+      <div className="body">
+        <div className="day-names">
+          {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
+            <div className="week">{d}</div>
+          ))}
+        </div>
+        {calendar.map((week) => (
+          <div classname="week">
+            {week.map((day) => (
+              <div className="day" onClick={() => handleAlbumClick(day)}>
+                <div className={dayStyles(day)}>
+                  {dailyAlbumImage(day)}
+                  <div class="numberCircle"></div>
+                  <div class="dayNumber">
+                    {day.format("D").toString()}
+                    <div />
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        );
-      return null;
-    }}
-  </Async>;
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default Calendar;
