@@ -146,7 +146,27 @@ function Calendar({
       },
     })
       .then((r) => r.json())
-      .then((data) => setRerender(data));
+      .then((data) => addAlbumSongsToBackend(data));
+  }
+
+  function addAlbumSongsToBackend(data) {
+    setRerender(data);
+    for (let i = 0, l = albumTracks.items.length; i < l; i++) {
+      fetch(`http://localhost:3000/songs`, {
+        method: "POST",
+        body: JSON.stringify({
+          title: albumTracks.items[i].name,
+          artist: albumTracks.items[i].artists[0].name,
+          album_id: data.id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((r) => r.json())
+        .then((data) => setRerender(data));
+    }
   }
 
   function setDailyAlbumBackend() {
@@ -166,7 +186,7 @@ function Calendar({
       },
     })
       .then((r) => r.json())
-      .then((data) => setRerender(data));
+      .then((data) => addAlbumSongsToBackend(data));
   }
 
   function handleAlbumClick(day) {
@@ -180,34 +200,34 @@ function Calendar({
     chooseRandomAlbum();
     return <span>Loading...</span>;
   } else
-  return (
-    <div className="calendar">
-      <Header value={value} setValue={setValue} />
-      <div className="body">
-        <div className="day-names">
-          {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
-            <div className="week">{d}</div>
-          ))}
-        </div>
-        {calendar.map((week) => (
-          <div classname="week">
-            {week.map((day) => (
-              <div className="day" onClick={() => handleAlbumClick(day)}>
-                <div className={dayStyles(day)}>
-                  {dailyAlbumImage(day)}
-                  <div class="numberCircle"></div>
-                  <div class="dayNumber">
-                    {day.format("D").toString()}
-                    <div />
-                  </div>
-                </div>
-              </div>
+    return (
+      <div className="calendar">
+        <Header value={value} setValue={setValue} />
+        <div className="body">
+          <div className="day-names">
+            {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
+              <div className="week">{d}</div>
             ))}
           </div>
-        ))}
+          {calendar.map((week) => (
+            <div classname="week">
+              {week.map((day) => (
+                <div className="day" onClick={() => handleAlbumClick(day)}>
+                  <div className={dayStyles(day)}>
+                    {dailyAlbumImage(day)}
+                    <div class="numberCircle"></div>
+                    <div class="dayNumber">
+                      {day.format("D").toString()}
+                      <div />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default Calendar;
