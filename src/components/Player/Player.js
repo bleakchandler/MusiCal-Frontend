@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import "./Player.css";
-// import Sidebar from "./Sidebar";
 import Calendar from "../Calendar/Calendar.js";
 import moment from "moment";
 import "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import SeeAlbumInfoModal from "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import UpdateAlbumModal from "../Calendar/Album Modal/UpdateAlbumModal";
-import NavBar from "../NavBar/Navbar.js"
-import { Navbar } from "react-bootstrap";
+import NavBar from "../NavBar/Navbar.js";
 
-function Player({ spotify, todaysDate, currentDaysData, setRerender }) {
+function Player({
+  spotify,
+  todaysDate,
+  currentDaysData,
+  setRerender,
+  newRandomAlbum,
+  generateNewRandomAlbum,
+  refresh,
+}) {
   const [currentDayID, setCurrentDayID] = useState([]);
   const userDays = currentDaysData.map((a) => a.date);
-  const d = moment().format("YYYY-MM-DD");
+  const currentDate = moment().format("YYYY-MM-DD");
   const [isOpen, setIsOpen] = React.useState(false);
   const [albumInfoForModalForm, setAlbumInfoForModalForm] = useState([]);
-
   const [isOpen2, setIsOpen2] = React.useState(false);
 
   const showModal = () => {
@@ -56,7 +61,7 @@ function Player({ spotify, todaysDate, currentDaysData, setRerender }) {
   function findDayID() {
     {
       for (let i = 0, l = currentDaysData.length; i < l; i++) {
-        if (d == currentDaysData[i].date) {
+        if (currentDate == currentDaysData[i].date) {
           setCurrentDayID(currentDaysData[i].id);
         }
       }
@@ -70,7 +75,7 @@ function Player({ spotify, todaysDate, currentDaysData, setRerender }) {
     return (
       <div className="player">
         <div className="player__body">
-          <NavBar/>
+          <NavBar />
           <Calendar
             spotify={spotify}
             todaysDate={todaysDate}
@@ -79,9 +84,14 @@ function Player({ spotify, todaysDate, currentDaysData, setRerender }) {
             showModal={showModal}
             setAlbumInfoForModalForm={setAlbumInfoForModalForm}
             setRerender={setRerender}
+            newRandomAlbum={newRandomAlbum}
+            hideModal={hideModal}
+            refresh={refresh}
+            // albumTracks={albumTracks}
           />
         </div>
         <SeeAlbumInfoModal
+          // albumTracks={albumTracks}
           showModal={showModal}
           hideModal={hideModal}
           isOpen={isOpen}
@@ -89,6 +99,8 @@ function Player({ spotify, todaysDate, currentDaysData, setRerender }) {
           showModal2={showModal2}
           setAlbumInfoForModalForm={setAlbumInfoForModalForm}
           setRerender={setRerender}
+          generateNewRandomAlbum={generateNewRandomAlbum}
+          currentDayID={currentDayID}
         ></SeeAlbumInfoModal>
         <UpdateAlbumModal
           showModal={showModal}

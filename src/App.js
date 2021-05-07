@@ -1,4 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  forwardRef,
+  useRef,
+  useImperativeHandle,
+} from "react";
 import "./App.css";
 import Login from "./components/Login/Login.js";
 import { getTokenFromURL } from "./components/Spotify Config/SpotifyConfig.js";
@@ -7,6 +13,8 @@ import { useDataLayerValue } from "./components/DataLayer.js";
 import Player from "./components/Player/Player.js";
 import moment from "moment";
 import { ChakraProvider } from "@chakra-ui/react";
+import Calendar from "./components/Calendar/Calendar.js";
+import AlbumFormModal from "./components/Calendar/Album Modal/SeeAlbumInfoModal";
 
 // import logo from "./logo.svg";
 // import Body from "./components/Body/Body.js";
@@ -23,8 +31,12 @@ function App() {
   const randomOffset = Math.floor(Math.random() * 100);
   const [todaysDate, setTodaysDate] = useState("");
   const [currentDaysData, setCurrentDaysData] = useState("");
-  const [daysData, setDaysData] = useState([]);
   const [rerender, setRerender] = useState([]);
+  const [newRandomAlbum, setNewRandomAlbum] = useState([]);
+  // const [albumTracks, setAlbumTracks] = useState([]);
+  const hash = getTokenFromURL();
+  const _token = hash.access_token;
+  const [refresh, doRefresh] = useState(0);
 
   function getRandomSearch() {
     // A list of all characters that can be chosen.
@@ -49,9 +61,7 @@ function App() {
   }
 
   useEffect(() => {
-    const hash = getTokenFromURL();
     window.location.hash = "";
-    const _token = hash.access_token;
 
     if (_token) {
       dispatch({
@@ -97,6 +107,7 @@ function App() {
       spotify
         .searchAlbums(getRandomSearch(), { limit: 1, offset: randomOffset })
         .then((albums) => {
+          setAlbumTracks(albums.albums.items[0].id)
           dispatch({
             type: "SET_ALBUMS",
             albums,
@@ -116,7 +127,41 @@ function App() {
     }
   }, []);
 
-  // function getDaysData() {
+  function setAlbumTracks(albumInfo) {
+    spotify
+      .getAlbumTracks(albumInfo)
+      .then((albumTracks) => {
+        dispatch({
+          type: "SET_ALBUM_TRACKS",
+          albumTracks,
+        });
+      });
+  }
+
+  function generateNewRandomAlbum() {
+    spotify
+      .searchAlbums(getRandomSearch(), { limit: 1, offset: randomOffset })
+      .then((albums) => {
+        setAlbumTracks(albums.albums.items[0].id);
+        dispatch({
+          type: "SET_ALBUMS",
+          albums,
+        });
+      });
+    doRefresh((prev) => prev + 1);
+  }
+
+  // function getAlbumTracks(albumID) {
+  //   spotify.getAlbumTracks(albumID).then(
+  //     function (data) {
+  //       setAlbumTracks(data);
+  //     },
+  //     function (err) {
+  //       console.error(err);
+  //     }
+  //   );
+  // }
+
   useEffect(() => {
     fetch(`http://localhost:3000/days`)
       .then((r) => r.json())
@@ -124,10 +169,8 @@ function App() {
         setCurrentDaysData(data.filter((dayObj) => dayObj.user_id === 1))
       );
   }, [rerender]);
-  // }
 
   if (currentDaysData.length == 0) {
-    // getDaysData();
     return <span>Loading...</span>;
   } else {
     return (
@@ -139,6 +182,9 @@ function App() {
               todaysDate={todaysDate}
               currentDaysData={currentDaysData}
               setRerender={setRerender}
+              generateNewRandomAlbum={generateNewRandomAlbum}
+              newRandomAlbum={newRandomAlbum}
+              refresh={refresh}
             />
           ) : (
             <Login />

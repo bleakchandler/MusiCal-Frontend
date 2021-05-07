@@ -13,7 +13,6 @@ const UpdateAlbumModal = ({
   setRerender,
   showModal,
 }) => {
-
   const [starRating, setStarRating] = useState("");
   const [comment, setComment] = useState("");
 
@@ -51,16 +50,10 @@ const UpdateAlbumModal = ({
     setRerender(e);
   };
 
-  function openSpotifyLink() {
-    window.open(albumInfoForModalForm.spotify_link);
-  }
-
   function handlePreviousModal() {
     showModal();
     hideModal2();
   }
-
-
 
   return (
     <>
@@ -74,9 +67,9 @@ const UpdateAlbumModal = ({
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Review {albumInfoForModalForm.title} by {albumInfoForModalForm.artist} 
+            Review {albumInfoForModalForm.title} by{" "}
+            {albumInfoForModalForm.artist}
             <br />
-        
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -134,27 +127,17 @@ const UpdateAlbumModal = ({
                   <Form.Label>Comment</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder={albumInfoForModalForm.comment}
+                    // placeholder={"albumInfoForModalForm.comment}"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                   />
-                  <Form.Text className="text-muted">
-                    {/* Enter a comment about the album! */}
-                  </Form.Text>
                 </Form.Group>
               </div>
             ))}
           </Form>
-          {/* <img class="w-100" src={albumInfoForModalForm.album_art} /> */}
-          {/* <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </p> */}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={albumDeleteHandler}>Delete</Button>
-          {/* <Button onClick={openSpotifyLink}>Spotify</Button> */}
           <Button onClick={handlePreviousModal}>Back to Album Info</Button>
           <Button
             type="submit"

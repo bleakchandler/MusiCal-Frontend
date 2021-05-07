@@ -9,17 +9,21 @@
   overflow: hidden;
   position: absolute;
   /* filter: grayscale(100%); */
-  overflow: hidden;
+  /* overflow: hidden; */
   z-index: -1;
   right: 0;
   top: 0;
-  /* filter: blur(1.2px); */
+  filter: blur(50%);
   /* margin-top:7px; */
   /* vertical-align: bottom; */
+  color: rgb(78, 77, 77);
+  border: 4px solid;
+  /* box-shadow:inset 20px; */
+  border-radius: 80%;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;1,200&display=swap");
 
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300&family=Montserrat&family=Raleway&family=Roboto&display=swap');
 /* .calendar {
   box-sizing: border-box;
   background: linear-gradient(-45deg, #e73c7e, #23a6d5, #23d5ab);
@@ -41,18 +45,18 @@
   animation: gradient 15s ease infinite;
   font-size: 1rem;
   width: 570px;
-  font-family: "Titillium Web", sans-serif;
-  font-style: normal;
+  font-family: "Montserrat";
+  font-style: light;
   position: absolute;
   left: 50%;
   top: 400%;
   transform: translateX(-50%);
   height: 500px;
-  background: #272929;
+  /* background: #272929; */
 }
 
 .calendar .header {
-  background: linear-gradient(-45deg, #535353, #000000, #c1c0c0);
+  background: #272929;
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   text-align: center;
@@ -104,14 +108,15 @@
 }
 
 .calendar .week {
-  background-color: #dee0e7;
+  background: #272929;
   width: calc(100% / 7);
   /* height: 44px; */
   /* height: calc(100% / 5); */
   /* line-height: (100% / 5); */
   text-align: center;
   text-transform: uppercase;
-  color: var(--black);
+  /* font-display: center; */
+  color: white;
   font-weight: 400;
 }
 .calendar .week div {
@@ -120,12 +125,19 @@
 
 .calendar .day {
   position: relative;
+  /* margin: 2px; */
+  /* border: 4px inner; */
+
+  /* border-radius: 20%; */
+
   width: calc(100% / 7);
   /* height: 44px; */
   display: inline-block;
+  /* border-color: rgb(201, 50, 50); */
 
   box-sizing: border-box;
   z-index: 1;
+  background-color: #434344;
 }
 
 .calendar .dayNumber {
@@ -133,10 +145,12 @@
   width: calc(100% / 7);
   /* height: 44px; */
   display: inline-block;
+
   padding: 0;
-  right: 1.8px;
-  bottom: 21px;
+  right: .6px;
+  bottom: 20px;
   margin: 0;
+  color: white;
   box-sizing: border-box;
   z-index: 1;
   text-align: center;
@@ -147,7 +161,7 @@
   width: 100%;
   /* height: 44px; */
   position: relative;
-  color: var(--black);
+  /* color: var(--black); */
   z-index: 100;
   line-height: 44px;
 }
@@ -158,8 +172,8 @@
   position: relative;
   z-index: 100;
   /* line-height: 44px; */
-  color: var(--grey);
-  background-color: white;
+  /* color: var(--grey); */
+  /* background-color: white; */
 }
 
 .calendar .day div.selected {
@@ -180,14 +194,15 @@
   max-height: 20px; */
   /* padding: 8px; */
   top: 20px;
-  left: 20px;
+  left: 21px;
   height: 30px !important;
   /* line-height: 44px !important; */
   width: 30px !important;
   border: 4px solid;
-  border-color: rgb(245, 243, 243);
 
-  background: white;
+
+  border-color: rgb(78, 77, 77);
+  background: #434344;
   /* border-width: thin medium thick 10px; */
   /* color: white; */
   /* box-sizing: initial; */
@@ -196,8 +211,8 @@
   /* line-height: 1; */
   box-sizing: content-box;
   /* white-space: nowrap; */
-  /* filter: blur(4); */
-  opacity: 100%;
+  filter: blur(4);
+  opacity: 90%;
 
   /* font-size:20px; */
 }
@@ -206,28 +221,28 @@
   width: 100%;
   /* height: 44px; */
   position: relative;
-  color: var(--black);
+  /* color: var(--black); */
   z-index: 100;
 
-  color: black;
+  /* color: black; */
 }
 
 .calendar .day div.normal {
   width: 100%;
   /* height: 44px; */
   position: relative;
-  color: var(--black);
+  /* color: var(--black); */
   z-index: 100;
 
   background-color: white;
-  color: var(--black);
+  /* color: var(--black); */
 }
 
 .calendar .day div.vacationDay {
   width: 100%;
   /* height: 44px; */
   position: relative;
-  color: var(--black);
+  /* color: var(--black); */
   z-index: 100;
 
   color: white;

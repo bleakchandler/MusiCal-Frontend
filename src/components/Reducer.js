@@ -40,6 +40,11 @@ const reducer = (state, action) => {
         ...state,
         albums: action.albums,
       };
+      case "SET_ALBUM_TRACKS":
+      return {
+        ...state,
+        albumTracks: action.albumTracks,
+      };
     default:
       return state;
   }

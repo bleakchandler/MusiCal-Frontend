@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useDataLayerValue } from "../../DataLayer.js";
 
 const AlbumFormModal = ({
   hideModal,
@@ -12,16 +13,9 @@ const AlbumFormModal = ({
   albumInfoForModalForm,
   setRerender,
   showModal2,
+  generateNewRandomAlbum,
+  currentDayID,
 }) => {
-  const [starRating, setStarRating] = useState("");
-  const [comment, setComment] = useState("");
-
-  // if (albumInfoForModalForm.length > 0) {
-  //   const releaseDate = albumInfoForModalForm.release_date;
-  //   // debugger;
-  //   console.log(albumInfoForModalForm);
-  // }
-
   function openSpotifyLink() {
     window.open(albumInfoForModalForm.spotify_link);
   }
@@ -31,6 +25,33 @@ const AlbumFormModal = ({
     hideModal();
   }
 
+  function generateNewRandomAlbumHelper() {
+    generateNewRandomAlbum();
+  }
+
+  function checkForAlbumRefreshButton() {
+    if (albumInfoForModalForm.id == currentDayID) {
+      return true;
+    }
+  }
+
+  // const arrayOfAlbumTracks = []
+
+  // function displayAlbumTracks() {
+    // if (albumTracks != 0) {
+    //   for (let i = 0, l = albumTracks.items.length; i < l; i++) {
+    //     // console.log(albumTracks)
+    //     arrayOfAlbumTracks.push(<li>{albumTracks.items[i].name}</li>);
+    //   }
+    // }
+  // }
+
+  // function doesAlbumMatchAlbumTracks() {
+  //   // console.log(albumInfoForModalForm)
+
+  // }
+
+  // doesAlbumMatchAlbumTracks();
 
   return (
     <>
@@ -40,32 +61,32 @@ const AlbumFormModal = ({
         centered
         show={isOpen}
         onHide={hideModal}
+        style={{ color: "gray" }}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             {albumInfoForModalForm.title} by {albumInfoForModalForm.artist}
-            {/* <br /> */}
             <Form.Text className="text-muted">
               Released {albumInfoForModalForm.release_date}
               <br />
-              {/* Genre: {albumInfoForModalForm.genre} */}
             </Form.Text>
           </Modal.Title>
         </Modal.Header>
 
         {albumInfoForModalForm.rating ? (
-        <Modal.Header>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {albumInfoForModalForm.rating ? (
-              <Form.Text className="font-weight-bold">
-                {albumInfoForModalForm.rating} Stars
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-vcenter">
+              {albumInfoForModalForm.rating ? (
+                <Form.Text className="font-weight-bold">
+                  {albumInfoForModalForm.rating} Stars
+                </Form.Text>
+              ) : null}
+              <Form.Text className="font-weight-normal">
+                {albumInfoForModalForm.comment}
               </Form.Text>
-            ) : null}
-            <Form.Text className="font-weight-normal">
-              {albumInfoForModalForm.comment}
-            </Form.Text>
-          </Modal.Title>
-        </Modal.Header>) : null}
+            </Modal.Title>
+          </Modal.Header>
+        ) : null}
 
         <Modal.Body>
           <img class="w-100" src={albumInfoForModalForm.album_art} />
@@ -78,8 +99,14 @@ const AlbumFormModal = ({
 
         <Modal.Footer>
           <Button onClick={openSpotifyLink}>Spotify</Button>
-          <Button onClick={hideModal}>Get New Album</Button>
-          <Button onClick={handleNextModal}>Add Review</Button>
+
+          {checkForAlbumRefreshButton() ? (
+            <Button onClick={generateNewRandomAlbumHelper}>
+              Get New Album
+            </Button>
+          ) : null}
+
+          <Button onClick={handleNextModal}>Add or Update Review</Button>
         </Modal.Footer>
       </Modal>
     </>
