@@ -85,7 +85,7 @@ function Calendar({
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
       if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
-          setAlbumInfoForModalForm(currentDaysData[i].album);
+          setAlbumInfoForModalForm(currentDaysData[i]);
         }
       }
     }
@@ -135,8 +135,6 @@ function Calendar({
   }, [dailyAlbumTitle]);
 
   function refreshDailyAlbumBackend() {
-    console.log("refreshDailyAlbumBackend was called");
-    console.log("refreshDailyAlbumBackend dailyAlbumTitle", dailyAlbumTitle);
     fetch(`http://localhost:3000/albums/${currentDayID}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -146,8 +144,6 @@ function Calendar({
         day_id: currentDayID,
         release_date: dailyAlbumReleaseDate.substring(0, 4),
         spotify_link: dailyAlbumSpotifyLink,
-        rating: "",
-        comment: "",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -159,7 +155,13 @@ function Calendar({
   }
 
   function addAlbumSongsToBackend(data) {
+    // console.log("addAlbumSongsToBackend was called");
+    // console.log("albumTracks was called", data);
     for (let i = 0, l = albumTracks.items.length; i < l; i++) {
+      console.log(
+        // "title: albumTracks.items[i].name",
+        albumTracks.items[i].name
+      );
       fetch(`http://localhost:3000/songs`, {
         method: "POST",
         body: JSON.stringify({
@@ -174,6 +176,18 @@ function Calendar({
       })
         .then((r) => r.json())
         .then((data) => setRerender(data));
+    }
+  }
+
+  function DELETE(data) {
+    for (let i = 0, l = albumTracks.items.length; i < l; i++) {
+      fetch(`http://localhost:3000/songs/${currentDayID}`, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setRerender(data);
+        });
     }
   }
 
