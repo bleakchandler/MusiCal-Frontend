@@ -16,12 +16,11 @@ const AlbumFormModal = ({
   generateNewRandomAlbum,
   currentDayID,
 }) => {
-  
-  function openSpotifyLink() {
-    window.open(albumInfoForModalForm.album.spotify_link);
-  }
+  const [{ albumTracks }, dispatch] = useDataLayerValue();
 
-  console.log("current days data", albumInfoForModalForm)
+  function openSpotifyLink() {
+    window.open(albumInfoForModalForm.spotify_link);
+  }
 
   function handleNextModal() {
     showModal2();
@@ -33,7 +32,7 @@ const AlbumFormModal = ({
   }
 
   function checkForAlbumRefreshButton() {
-    if (albumInfoForModalForm.album.id == currentDayID) {
+    if (albumInfoForModalForm.id == currentDayID) {
       return true;
     }
   }
@@ -50,31 +49,31 @@ const AlbumFormModal = ({
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {albumInfoForModalForm.album.title} by {albumInfoForModalForm.album.artist}
+            {albumInfoForModalForm.title} by {albumInfoForModalForm.artist}
             <Form.Text className="text-muted">
-              Released {albumInfoForModalForm.album.release_date}
+              Released {albumInfoForModalForm.release_date}
               <br />
             </Form.Text>
           </Modal.Title>
         </Modal.Header>
 
-        {albumInfoForModalForm.album.rating ? (
+        {albumInfoForModalForm.rating ? (
           <Modal.Header>
             <Modal.Title id="contained-modal-title-vcenter">
-              {albumInfoForModalForm.album.rating ? (
+              {albumInfoForModalForm.rating ? (
                 <Form.Text className="font-weight-bold">
-                  {albumInfoForModalForm.album.rating} Stars
+                  {albumInfoForModalForm.rating} Stars
                 </Form.Text>
               ) : null}
               <Form.Text className="font-weight-normal">
-                {albumInfoForModalForm.album.comment}
+                {albumInfoForModalForm.comment}
               </Form.Text>
             </Modal.Title>
           </Modal.Header>
         ) : null}
 
         <Modal.Body>
-          <img class="w-100" src={albumInfoForModalForm.album.album_art} />
+          <img class="w-100" src={albumInfoForModalForm.album_art} />
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta

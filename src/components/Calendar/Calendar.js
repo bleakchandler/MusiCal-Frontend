@@ -1,16 +1,16 @@
 import React, {
   useEffect,
   useState,
-  forwardRef,
-  useRef,
-  useImperativeHandle,
+  // ,forwardRef,
+  // useRef,
+  // useImperativeHandle,
 } from "react";
 import "./Calendar.css";
 import moment from "moment";
 import BuildCalendar from "./BuildCalendar";
 import Header from "./CalendarHeader";
 import { useDataLayerValue } from "../DataLayer.js";
-import Async from "react-async";
+// import Async from "react-async";
 import "./Album Modal/SeeAlbumInfoModal.js";
 
 function Calendar({
@@ -20,7 +20,7 @@ function Calendar({
   showModal,
   setAlbumInfoForModalForm,
   setRerender,
-  newRandomAlbum,
+  // newRandomAlbum,
   hideModal,
   refresh,
   rerender,
@@ -29,7 +29,7 @@ function Calendar({
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [dailyAlbum, setDailyAlbum] = useState([]);
-  const [dailyAlbumTracks, setDailyAlbumTracks] = useState([]);
+  // const [dailyAlbumTracks, setDailyAlbumTracks] = useState([]);
   const [dailyAlbumTitle, setDailyAlbumTitle] = useState("");
   const [dailyAlbumArtist, setDailyAlbumArtist] = useState("");
   const [dailyAlbumArt, setDailyAlbumArt] = useState("");
@@ -85,7 +85,7 @@ function Calendar({
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
       if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
-          setAlbumInfoForModalForm(currentDaysData[i]);
+          setAlbumInfoForModalForm(currentDaysData[i].album);
         }
       }
     }
