@@ -51,6 +51,7 @@ function App() {
     }
     return randomSearch;
   }
+  console.log("refresh", refresh);
 
   useEffect(() => {
     window.location.hash = "";
@@ -95,6 +96,7 @@ function App() {
       //     console.error(err);
       //   }
       // );
+
       //where random albums are pulled
       spotify
         .searchAlbums(getRandomSearch(), { limit: 1, offset: randomOffset })
@@ -137,16 +139,13 @@ function App() {
               type: "SET_ALBUM_TRACKS",
               albumTracks,
             });
+            dispatch({
+              type: "SET_ALBUMS",
+              albums,
+            });
+            doRefresh((prev) => prev + 1);
           });
-
-        // setAlbumTracks(albums.albums.items[0].id);
-        dispatch({
-          type: "SET_ALBUMS",
-          albums,
-        });
       });
-
-    doRefresh((prev) => prev + 1);
   }
 
   // function getAlbumTracks(albumID) {
@@ -178,6 +177,7 @@ function App() {
             <Player
               rerender={rerender}
               spotify={spotify}
+              doRefresh={doRefresh}
               todaysDate={todaysDate}
               currentDaysData={currentDaysData}
               setRerender={setRerender}

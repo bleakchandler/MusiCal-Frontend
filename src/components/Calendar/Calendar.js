@@ -92,6 +92,7 @@ function Calendar({
   }
 
   function chooseRandomAlbum() {
+    console.log("chooseRandomAlbum was called", albums);
     albums?.albums.items.map((album) => setDailyAlbum(album));
     albums?.albums.items.map((album) => setDailyAlbumArt(album.images[0].url));
     albums?.albums.items.map((album) =>
@@ -121,13 +122,21 @@ function Calendar({
 
   useEffect(() => {
     if (refresh != 0) {
+      console.log("something is happening");
       chooseRandomAlbum();
-      refreshDailyAlbumBackend();
-      hideModal();
     }
   }, [refresh]);
 
+  useEffect(() => {
+    if (refresh != 0) {
+      refreshDailyAlbumBackend();
+      hideModal();
+    }
+  }, [dailyAlbumTitle]);
+
   function refreshDailyAlbumBackend() {
+    console.log("refreshDailyAlbumBackend was called");
+    console.log("refreshDailyAlbumBackend dailyAlbumTitle", dailyAlbumTitle);
     fetch(`http://localhost:3000/albums/${currentDayID}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -150,7 +159,7 @@ function Calendar({
   }
 
   function addAlbumSongsToBackend(data) {
-    setRerender(data);
+    // setRerender(data);
     for (let i = 0, l = albumTracks.items.length; i < l; i++) {
       fetch(`http://localhost:3000/songs`, {
         method: "POST",
@@ -196,7 +205,6 @@ function Calendar({
   }
 
   if (dailyAlbum.length == 0 && albumTracks != null) {
-    console.log(albumTracks);
     chooseRandomAlbum();
     return <span>Loading...</span>;
   } else

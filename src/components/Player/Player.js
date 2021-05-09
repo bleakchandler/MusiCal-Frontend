@@ -15,7 +15,8 @@ function Player({
   newRandomAlbum,
   generateNewRandomAlbum,
   refresh,
-  rerender
+  rerender,
+  doRefresh
 }) {
   const [currentDayID, setCurrentDayID] = useState([]);
   const userDays = currentDaysData.map((a) => a.date);
@@ -89,6 +90,7 @@ function Player({
             newRandomAlbum={newRandomAlbum}
             hideModal={hideModal}
             refresh={refresh}
+            doRefresh={doRefresh}
           />
         </div>
         <SeeAlbumInfoModal
