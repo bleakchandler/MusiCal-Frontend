@@ -159,7 +159,6 @@ function Calendar({
   }
 
   function addAlbumSongsToBackend(data) {
-    // setRerender(data);
     for (let i = 0, l = albumTracks.items.length; i < l; i++) {
       fetch(`http://localhost:3000/songs`, {
         method: "POST",
