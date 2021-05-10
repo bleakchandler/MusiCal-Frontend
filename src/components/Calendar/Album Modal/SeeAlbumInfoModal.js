@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDataLayerValue } from "../../DataLayer.js";
+import "./Modal.css";
 
 const AlbumFormModal = ({
   hideModal,
@@ -59,7 +60,7 @@ const AlbumFormModal = ({
         centered
         show={isOpen}
         onHide={hideModal}
-        // style={{ color: "gray" }}
+        // class={test}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -92,11 +93,9 @@ const AlbumFormModal = ({
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
             ac consectetur ac, vestibulum at eros.
           </p> */}
+          <br/>
+           <p>{cards}</p>
         </Modal.Body>
-
-        <Modal.Header>
-          <p>{cards}</p>
-        </Modal.Header>
 
         <Modal.Footer>
           <Button onClick={openSpotifyLink}>Spotify</Button>

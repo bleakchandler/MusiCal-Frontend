@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300&family=Montserrat&family=Raleway&family=Roboto&display=swap');
+
+.modal-header, .modal-body, .modal-footer, .modal-content {
+    background-color: #272929;
+    color: white;
+    /* font-family: "Montserrat"; */
+}
+
+.btn {
+    background-color: #7a817c;
+    border: none;
+}
+
+.btn:hover, .btn:active {
+    background-color: #1DB954;
+    border: none;
+    border-color: yellow;
+}
+
+ .modal-backdrop {
+    background-color:#545555;
+ }

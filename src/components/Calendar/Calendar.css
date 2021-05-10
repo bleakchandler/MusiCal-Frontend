@@ -44,12 +44,12 @@
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   font-size: 1rem;
-  width: 570px;
+  width:760px;
   font-family: "Montserrat";
   font-style: light;
   position: absolute;
   left: 50%;
-  top: 400%;
+  top: 250%;
   transform: translateX(-50%);
   height: 500px;
   /* background: #272929; */
@@ -163,7 +163,7 @@
   position: relative;
   /* color: var(--black); */
   z-index: 100;
-  line-height: 44px;
+  line-height: 72px;
 }
 
 .calendar .day div.before {
@@ -193,8 +193,8 @@
   
   max-height: 20px; */
   /* padding: 8px; */
-  top: 20px;
-  left: 21px;
+  top: 34px;
+  left: 34px;
   height: 30px !important;
   /* line-height: 44px !important; */
   width: 30px !important;
@@ -212,7 +212,7 @@
   box-sizing: content-box;
   /* white-space: nowrap; */
   filter: blur(4);
-  opacity: 90%;
+  opacity: 100%;
 
   /* font-size:20px; */
 }

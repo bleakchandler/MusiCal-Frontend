@@ -29,7 +29,7 @@ export default function Navbar() {
     <Box>
       <Flex
         // bg={useColorModeValue("gray.620")}
-        color={('white')}
+        color={"white"}
         minH={"60px"}
         minW={"100vw"}
         py={{ base: 2 }}
@@ -41,7 +41,7 @@ export default function Navbar() {
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
-          ml={{ base: -2}}
+          ml={{ base: -2 }}
           display={{ base: "flex", md: "none" }}
         >
           <IconButton
@@ -58,7 +58,6 @@ export default function Navbar() {
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             fontWeight={600}
-
           >
             MusiCal
           </Text>
@@ -118,10 +117,10 @@ const DesktopNav = () => {
                 href={navItem.href ?? "#"}
                 fontSize={"sm"}
                 fontWeight={500}
-                color={('gray.600')}
+                color={"gray.600"}
                 _hover={{
                   textDecoration: "none",
-                  color: 'gray.600'
+                  color: "gray.600",
                 }}
               >
                 {navItem.label}
@@ -132,7 +131,7 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={"xl"}
-                bg={('white')}
+                bg={"white"}
                 p={4}
                 rounded={"xl"}
                 minW={"sm"}
