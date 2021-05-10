@@ -13,9 +13,11 @@ const AlbumFormModal = ({
   albumInfoForModalForm,
   setRerender,
   showAlbumRatingModal,
+  showSongsRatingModal,
   generateNewRandomAlbum,
   currentDayID,
   albumSongsInfoForModalForm,
+  rerender,
 }) => {
   const [{ albumTracks }, dispatch] = useDataLayerValue();
 
@@ -23,8 +25,13 @@ const AlbumFormModal = ({
     window.open(albumInfoForModalForm.spotify_link);
   }
 
-  function handleNextModal() {
+  function handleGoToAlbumReviewModal() {
     showAlbumRatingModal();
+    hideModal();
+  }
+
+  function handleGoToSongsReviewModal() {
+    showSongsRatingModal();
     hideModal();
   }
 
@@ -52,7 +59,7 @@ const AlbumFormModal = ({
         centered
         show={isOpen}
         onHide={hideModal}
-        style={{ color: "gray" }}
+        // style={{ color: "gray" }}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -88,19 +95,19 @@ const AlbumFormModal = ({
         </Modal.Body>
 
         <Modal.Header>
-           <p>{cards}</p>
+          <p>{cards}</p>
         </Modal.Header>
 
         <Modal.Footer>
           <Button onClick={openSpotifyLink}>Spotify</Button>
 
           {checkForAlbumRefreshButton() ? (
-            <Button onClick={generateNewRandomAlbumHelper}>
-              Get New Album
-            </Button>
+            <Button onClick={generateNewRandomAlbumHelper}>New Album</Button>
           ) : null}
 
-          <Button onClick={handleNextModal}>Add or Update Review</Button>
+          <Button onClick={handleGoToAlbumReviewModal}>Review Album</Button>
+
+          <Button onClick={handleGoToSongsReviewModal}>Review Songs</Button>
         </Modal.Footer>
       </Modal>
     </>

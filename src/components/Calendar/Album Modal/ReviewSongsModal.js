@@ -5,14 +5,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const UpdateAlbumModal = ({
-  hideAlbumRatingModal,
-  showAlbumRatingModal,
-  albumRatingModalIsOpen,
+const SongReviewModal = ({
   albumInfoForModalForm,
   albumSongsInfoForModalForm,
+  hideSongsRatingModal,
   setRerender,
   showModal,
+  songsRatingModalIsOpen,
 }) => {
   const [starRating, setStarRating] = useState("");
   const [comment, setComment] = useState("");
@@ -34,18 +33,12 @@ const UpdateAlbumModal = ({
       .then((data) => setRerender(data));
   };
 
-  function albumDeleteHandler() {
-    fetch(`http://localhost:3000/albums/${albumInfoForModalForm.id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setRerender(data);
-      });
-  }
+  var cards = albumSongsInfoForModalForm.map(function (card) {
+    return <li>{card.title}</li>;
+  });
 
   const albumReviewSubmitHandler = (e) => {
-    hideAlbumRatingModal();
+    hideSongsRatingModal();
     e.preventDefault();
     handleAlbumReview({ starRating, comment });
     setRerender(e);
@@ -53,7 +46,7 @@ const UpdateAlbumModal = ({
 
   function handlePreviousModal() {
     showModal();
-    hideAlbumRatingModal();
+    hideSongsRatingModal();
   }
 
   return (
@@ -62,17 +55,22 @@ const UpdateAlbumModal = ({
         size="small"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        show={albumRatingModalIsOpen}
-        onHide={hideAlbumRatingModal}
+        show={songsRatingModalIsOpen}
+        onHide={hideSongsRatingModal}
         onSubmit={albumReviewSubmitHandler}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Review {albumInfoForModalForm.title} by{" "}
+            Review Songs from {albumInfoForModalForm.title} by{" "}
             {albumInfoForModalForm.artist}
             <br />
           </Modal.Title>
         </Modal.Header>
+
+        <Modal.Header>
+          <p>{cards}</p>
+        </Modal.Header>
+
         <Modal.Body>
           <Form>
             {["radio"].map((type) => (
@@ -138,7 +136,6 @@ const UpdateAlbumModal = ({
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={albumDeleteHandler}>Delete</Button>
           <Button onClick={handlePreviousModal}>Back to Album Info</Button>
           <Button
             type="submit"
@@ -153,4 +150,4 @@ const UpdateAlbumModal = ({
   );
 };
 
-export default UpdateAlbumModal;
+export default SongReviewModal;

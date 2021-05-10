@@ -4,7 +4,8 @@ import Calendar from "../Calendar/Calendar.js";
 import moment from "moment";
 import "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import SeeAlbumInfoModal from "../Calendar/Album Modal/SeeAlbumInfoModal.js";
-import UpdateAlbumModal from "../Calendar/Album Modal/UpdateAlbumModal";
+import AlbumRatingModal from "../Calendar/Album Modal/ReviewAlbumModal";
+import SongsRatingModal from "../Calendar/Album Modal/ReviewSongsModal.js";
 import NavBar from "../NavBar/Navbar.js";
 
 function Player({
@@ -16,16 +17,24 @@ function Player({
   generateNewRandomAlbum,
   refresh,
   rerender,
-  doRefresh
+  doRefresh,
 }) {
   const [currentDayID, setCurrentDayID] = useState([]);
   const userDays = currentDaysData.map((a) => a.date);
   const currentDate = moment().format("YYYY-MM-DD");
   const [isOpen, setIsOpen] = React.useState(false);
   const [albumInfoForModalForm, setAlbumInfoForModalForm] = useState([]);
-  const [albumSongsInfoForModalForm, setAlbumSongsInfoForModalForm] = useState([]);
+  const [albumSongsInfoForModalForm, setAlbumSongsInfoForModalForm] = useState(
+    []
+  );
 
-  const [albumRatingModalIsOpen, setalbumRatingModalIsOpen] = React.useState(false);
+  const [albumRatingModalIsOpen, setAlbumRatingModalIsOpen] = React.useState(
+    false
+  );
+
+  const [songsRatingModalIsOpen, setSongsRatingModalIsOpen] = React.useState(
+    false
+  );
 
   const showModal = () => {
     setIsOpen(true);
@@ -36,11 +45,19 @@ function Player({
   };
 
   const showAlbumRatingModal = () => {
-    setalbumRatingModalIsOpen(true);
+    setAlbumRatingModalIsOpen(true);
   };
 
   const hideAlbumRatingModal = () => {
-    setalbumRatingModalIsOpen(false);
+    setAlbumRatingModalIsOpen(false);
+  };
+
+  const showSongsRatingModal = () => {
+    setSongsRatingModalIsOpen(true);
+  };
+
+  const hideSongsRatingModal = () => {
+    setSongsRatingModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -96,6 +113,7 @@ function Player({
             doRefresh={doRefresh}
           />
         </div>
+
         <SeeAlbumInfoModal
           showModal={showModal}
           hideModal={hideModal}
@@ -103,12 +121,24 @@ function Player({
           albumInfoForModalForm={albumInfoForModalForm}
           albumSongsInfoForModalForm={albumSongsInfoForModalForm}
           showAlbumRatingModal={showAlbumRatingModal}
+          showSongsRatingModal={showSongsRatingModal}
           setAlbumInfoForModalForm={setAlbumInfoForModalForm}
+          rerender={rerender}
           setRerender={setRerender}
           generateNewRandomAlbum={generateNewRandomAlbum}
           currentDayID={currentDayID}
         ></SeeAlbumInfoModal>
-        <UpdateAlbumModal
+
+        <SongsRatingModal
+          showModal={showModal}
+          albumSongsInfoForModalForm={albumSongsInfoForModalForm}
+          albumInfoForModalForm={albumInfoForModalForm}
+          songsRatingModalIsOpen={songsRatingModalIsOpen}
+          hideSongsRatingModal={hideSongsRatingModal}
+          setRerender={setRerender}
+        ></SongsRatingModal>
+
+        <AlbumRatingModal
           showModal={showModal}
           showAlbumRatingModal={showAlbumRatingModal}
           hideAlbumRatingModal={hideAlbumRatingModal}
@@ -116,7 +146,7 @@ function Player({
           albumInfoForModalForm={albumInfoForModalForm}
           albumSongsInfoForModalForm={albumSongsInfoForModalForm}
           setRerender={setRerender}
-        ></UpdateAlbumModal>
+        ></AlbumRatingModal>
       </div>
     );
   }

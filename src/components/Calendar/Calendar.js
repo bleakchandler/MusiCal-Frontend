@@ -126,7 +126,7 @@ function Calendar({
 
   useEffect(() => {
     if (refresh != 0) {
-      console.log("something is happening");
+      // console.log("something is happening");
       chooseRandomAlbum();
 
     }
@@ -135,7 +135,7 @@ function Calendar({
   useEffect(() => {
     if (refresh != 0) {
       DELETE();
-      console.log("sdfsdf")
+      // console.log("sdfsdf")
       refreshDailyAlbumBackend();
       hideModal();
       // setRerender(currentDayID)

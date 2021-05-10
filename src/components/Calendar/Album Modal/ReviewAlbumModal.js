@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const UpdateAlbumModal = ({
+const AlbumReviewModal = ({
   hideAlbumRatingModal,
   showAlbumRatingModal,
   albumRatingModalIsOpen,
@@ -153,4 +153,4 @@ const UpdateAlbumModal = ({
   );
 };
 
-export default UpdateAlbumModal;
+export default AlbumReviewModal;
