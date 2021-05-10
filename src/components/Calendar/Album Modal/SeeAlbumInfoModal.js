@@ -49,7 +49,7 @@ const AlbumFormModal = ({
   console.log("albumInfoForModalForm", albumSongsInfoForModalForm);
 
   var cards = albumSongsInfoForModalForm.map(function (card) {
-    return <li>{card.title}</li>;
+    return <li type="1">{card.title}</li>;
   });
 
   return (
@@ -93,8 +93,11 @@ const AlbumFormModal = ({
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
             ac consectetur ac, vestibulum at eros.
           </p> */}
-          <br/>
-           <p>{cards}</p>
+
+ 
+           <p><br/>{cards}</p>
+
+
         </Modal.Body>
 
         <Modal.Footer>

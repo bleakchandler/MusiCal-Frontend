@@ -23,7 +23,7 @@
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300&family=Montserrat&family=Raleway&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Source+Sans+Pro:wght@600&display=swap');
 /* .calendar {
   box-sizing: border-box;
   background: linear-gradient(-45deg, #e73c7e, #23a6d5, #23d5ab);
@@ -45,8 +45,9 @@
   animation: gradient 15s ease infinite;
   font-size: 1rem;
   width:760px;
-  font-family: "Montserrat";
-  font-style: light;
+  font-family: "Source Sans Pro";
+  font-weight: 500;
+
   position: absolute;
   left: 50%;
   top: 250%;
@@ -58,6 +59,8 @@
 .calendar .header {
   background: #272929;
   background-size: 400% 400%;
+  font-size: 1.2rem;
+
   animation: gradient 15s ease infinite;
   text-align: center;
   min-height: 2rem;
@@ -193,8 +196,8 @@
   
   max-height: 20px; */
   /* padding: 8px; */
-  top: 34px;
-  left: 34px;
+  top: 35px;
+  left: 34.3px;
   height: 30px !important;
   /* line-height: 44px !important; */
   width: 30px !important;

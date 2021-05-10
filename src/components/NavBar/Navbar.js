@@ -22,6 +22,9 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 
+
+
+
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 

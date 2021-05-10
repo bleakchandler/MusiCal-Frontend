@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+
 .login {
     display: grid;
     place-items: center;
     height: 100vh;
     background-color: black;
+    font-family: "Source Sans Pro";
+    font-weight: 500;
   }
   
   .login > img {
@@ -14,7 +18,7 @@
     padding: 20px;
     border-radius: 99px;
     font-weight: 600;
-    color: white;
-    text-decoration: none;
+    color: white !important;
+    text-decoration: none !important;
     background-color: #1db954;
   }

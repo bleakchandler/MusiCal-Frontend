@@ -36,7 +36,7 @@ const SongReviewModal = ({
 
   var cards = albumSongsInfoForModalForm.map(function (card) {
     return (
-      <li>
+      <li type="1">
         {card.title}
         <Modal.Body>
           <Form>

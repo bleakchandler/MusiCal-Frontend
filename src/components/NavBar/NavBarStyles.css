@@ -1,6 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;1,200&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
 
-@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 
 ul {
   list-style-type: none;
@@ -13,6 +12,7 @@ ul {
 li {
   float: right;
 }
+
 
 li a {
   display: block;

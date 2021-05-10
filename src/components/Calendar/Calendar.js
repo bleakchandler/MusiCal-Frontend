@@ -1,9 +1,6 @@
 import React, {
   useEffect,
   useState,
-  // ,forwardRef,
-  // useRef,
-  // useImperativeHandle,
 } from "react";
 import "./Calendar.css";
 import moment from "moment";
@@ -20,11 +17,10 @@ function Calendar({
   showModal,
   setAlbumInfoForModalForm,
   setRerender,
-  // newRandomAlbum,
   hideModal,
   refresh,
   rerender,
-  setAlbumSongsInfoForModalForm
+  setAlbumSongsInfoForModalForm,
 }) {
   const [{ albums, albumTracks }, dispatch] = useDataLayerValue();
   const [calendar, setCalendar] = useState([]);
@@ -87,7 +83,7 @@ function Calendar({
       if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
           setSelectedDay(day);
-          setAlbumSongsInfoForModalForm(currentDaysData[i].songs)
+          setAlbumSongsInfoForModalForm(currentDaysData[i].songs);
           setAlbumInfoForModalForm(currentDaysData[i].album);
         }
       }
@@ -108,7 +104,6 @@ function Calendar({
     albums?.albums.items.map((album) =>
       setDailyAlbumReleaseDate(album.release_date)
     );
-
   }
 
   function setDailyAlbumBackendCheck() {
@@ -128,7 +123,6 @@ function Calendar({
     if (refresh != 0) {
       // console.log("something is happening");
       chooseRandomAlbum();
-
     }
   }, [refresh]);
 
@@ -175,7 +169,7 @@ function Calendar({
         release_date: dailyAlbumReleaseDate.substring(0, 4),
         spotify_link: dailyAlbumSpotifyLink,
         comment: "",
-        rating: ""
+        rating: "",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -184,7 +178,6 @@ function Calendar({
     })
       .then((r) => r.json())
       .then((data) => addAlbumSongsToBackend(data));
-
   }
 
   function addAlbumSongsToBackend(data) {
@@ -213,7 +206,7 @@ function Calendar({
   }
 
   function DELETE() {
-    console.log("delete hit", currentDayID)
+    console.log("delete hit", currentDayID);
     fetch(`http://localhost:3000/songs/${currentDayID}`, {
       method: "DELETE",
     })
@@ -222,8 +215,6 @@ function Calendar({
         setRerender(currentDayID);
       });
   }
-
-  
 
   function handleAlbumClick(day) {
     setValue(day);

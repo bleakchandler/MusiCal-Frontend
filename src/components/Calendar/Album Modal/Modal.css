@@ -1,20 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300&family=Montserrat&family=Raleway&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
 
 .modal-header, .modal-body, .modal-footer, .modal-content {
     background-color: #272929;
     color: white;
-    /* font-family: "Montserrat"; */
+    font-family: "Source Sans Pro";
 }
 
 .btn {
     background-color: #7a817c;
     border: none;
+    box-shadow: none !important;   
 }
 
-.btn:hover, .btn:active {
-    background-color: #1DB954;
-    border: none;
-    border-color: yellow;
+.btn:hover, .btn:focus, .btn:active, .btn:visited {
+    background-color: #1DB954 !important;       
 }
 
  .modal-backdrop {
