@@ -12,9 +12,10 @@ const AlbumFormModal = ({
   isOpen,
   albumInfoForModalForm,
   setRerender,
-  showModal2,
+  showAlbumRatingModal,
   generateNewRandomAlbum,
   currentDayID,
+  albumSongsInfoForModalForm,
 }) => {
   const [{ albumTracks }, dispatch] = useDataLayerValue();
 
@@ -23,7 +24,7 @@ const AlbumFormModal = ({
   }
 
   function handleNextModal() {
-    showModal2();
+    showAlbumRatingModal();
     hideModal();
   }
 
@@ -36,6 +37,12 @@ const AlbumFormModal = ({
       return true;
     }
   }
+
+  console.log("albumInfoForModalForm", albumSongsInfoForModalForm);
+
+  var cards = albumSongsInfoForModalForm.map(function (card) {
+    return <li>{card.title}</li>;
+  });
 
   return (
     <>
@@ -52,7 +59,6 @@ const AlbumFormModal = ({
             {albumInfoForModalForm.title} by {albumInfoForModalForm.artist}
             <Form.Text className="text-muted">
               Released {albumInfoForModalForm.release_date}
-              <br />
             </Form.Text>
           </Modal.Title>
         </Modal.Header>
@@ -80,6 +86,10 @@ const AlbumFormModal = ({
             ac consectetur ac, vestibulum at eros.
           </p> */}
         </Modal.Body>
+
+        <Modal.Header>
+           <p>{cards}</p>
+        </Modal.Header>
 
         <Modal.Footer>
           <Button onClick={openSpotifyLink}>Spotify</Button>

@@ -24,12 +24,13 @@ function Calendar({
   hideModal,
   refresh,
   rerender,
+  setAlbumSongsInfoForModalForm
 }) {
   const [{ albums, albumTracks }, dispatch] = useDataLayerValue();
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [dailyAlbum, setDailyAlbum] = useState([]);
-  // const [dailyAlbumTracks, setDailyAlbumTracks] = useState([]);
+  const [selectedDay, setSelectedDay] = useState([]);
   const [dailyAlbumTitle, setDailyAlbumTitle] = useState("");
   const [dailyAlbumArtist, setDailyAlbumArtist] = useState("");
   const [dailyAlbumArt, setDailyAlbumArt] = useState("");
@@ -85,6 +86,8 @@ function Calendar({
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
       if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
+          setSelectedDay(day);
+          setAlbumSongsInfoForModalForm(currentDaysData[i].songs)
           setAlbumInfoForModalForm(currentDaysData[i].album);
         }
       }
@@ -105,6 +108,7 @@ function Calendar({
     albums?.albums.items.map((album) =>
       setDailyAlbumReleaseDate(album.release_date)
     );
+
   }
 
   function setDailyAlbumBackendCheck() {
@@ -124,19 +128,25 @@ function Calendar({
     if (refresh != 0) {
       console.log("something is happening");
       chooseRandomAlbum();
+
     }
   }, [refresh]);
 
   useEffect(() => {
     if (refresh != 0) {
+      DELETE();
+      console.log("sdfsdf")
       refreshDailyAlbumBackend();
       hideModal();
+      // setRerender(currentDayID)
+
+      getAlbumInfoForModal(selectedDay);
     }
   }, [dailyAlbumTitle]);
 
-  function refreshDailyAlbumBackend() {
-    fetch(`http://localhost:3000/albums/${currentDayID}`, {
-      method: "PATCH",
+  function setDailyAlbumBackend() {
+    fetch(`http://localhost:3000/albums`, {
+      method: "POST",
       body: JSON.stringify({
         title: dailyAlbumTitle,
         artist: dailyAlbumArtist,
@@ -152,6 +162,29 @@ function Calendar({
     })
       .then((r) => r.json())
       .then((data) => addAlbumSongsToBackend(data));
+  }
+
+  function refreshDailyAlbumBackend() {
+    fetch(`http://localhost:3000/albums/${currentDayID}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title: dailyAlbumTitle,
+        artist: dailyAlbumArtist,
+        album_art: dailyAlbumArt,
+        day_id: currentDayID,
+        release_date: dailyAlbumReleaseDate.substring(0, 4),
+        spotify_link: dailyAlbumSpotifyLink,
+        comment: "",
+        rating: ""
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => addAlbumSongsToBackend(data));
+
   }
 
   function addAlbumSongsToBackend(data) {
@@ -179,37 +212,18 @@ function Calendar({
     }
   }
 
-  function DELETE(data) {
-    for (let i = 0, l = albumTracks.items.length; i < l; i++) {
-      fetch(`http://localhost:3000/songs/${currentDayID}`, {
-        method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setRerender(data);
-        });
-    }
+  function DELETE() {
+    console.log("delete hit", currentDayID)
+    fetch(`http://localhost:3000/songs/${currentDayID}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRerender(currentDayID);
+      });
   }
 
-  function setDailyAlbumBackend() {
-    fetch(`http://localhost:3000/albums`, {
-      method: "POST",
-      body: JSON.stringify({
-        title: dailyAlbumTitle,
-        artist: dailyAlbumArtist,
-        album_art: dailyAlbumArt,
-        day_id: currentDayID,
-        release_date: dailyAlbumReleaseDate.substring(0, 4),
-        spotify_link: dailyAlbumSpotifyLink,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((r) => r.json())
-      .then((data) => addAlbumSongsToBackend(data));
-  }
+  
 
   function handleAlbumClick(day) {
     setValue(day);

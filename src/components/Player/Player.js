@@ -23,7 +23,9 @@ function Player({
   const currentDate = moment().format("YYYY-MM-DD");
   const [isOpen, setIsOpen] = React.useState(false);
   const [albumInfoForModalForm, setAlbumInfoForModalForm] = useState([]);
-  const [isOpen2, setIsOpen2] = React.useState(false);
+  const [albumSongsInfoForModalForm, setAlbumSongsInfoForModalForm] = useState([]);
+
+  const [albumRatingModalIsOpen, setalbumRatingModalIsOpen] = React.useState(false);
 
   const showModal = () => {
     setIsOpen(true);
@@ -33,12 +35,12 @@ function Player({
     setIsOpen(false);
   };
 
-  const showModal2 = () => {
-    setIsOpen2(true);
+  const showAlbumRatingModal = () => {
+    setalbumRatingModalIsOpen(true);
   };
 
-  const hideModal2 = () => {
-    setIsOpen2(false);
+  const hideAlbumRatingModal = () => {
+    setalbumRatingModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -86,6 +88,7 @@ function Player({
             currentDaysData={currentDaysData}
             showModal={showModal}
             setAlbumInfoForModalForm={setAlbumInfoForModalForm}
+            setAlbumSongsInfoForModalForm={setAlbumSongsInfoForModalForm}
             setRerender={setRerender}
             newRandomAlbum={newRandomAlbum}
             hideModal={hideModal}
@@ -98,7 +101,8 @@ function Player({
           hideModal={hideModal}
           isOpen={isOpen}
           albumInfoForModalForm={albumInfoForModalForm}
-          showModal2={showModal2}
+          albumSongsInfoForModalForm={albumSongsInfoForModalForm}
+          showAlbumRatingModal={showAlbumRatingModal}
           setAlbumInfoForModalForm={setAlbumInfoForModalForm}
           setRerender={setRerender}
           generateNewRandomAlbum={generateNewRandomAlbum}
@@ -106,10 +110,11 @@ function Player({
         ></SeeAlbumInfoModal>
         <UpdateAlbumModal
           showModal={showModal}
-          showModal2={showModal2}
-          hideModal2={hideModal2}
-          isOpen2={isOpen2}
+          showAlbumRatingModal={showAlbumRatingModal}
+          hideAlbumRatingModal={hideAlbumRatingModal}
+          albumRatingModalIsOpen={albumRatingModalIsOpen}
           albumInfoForModalForm={albumInfoForModalForm}
+          albumSongsInfoForModalForm={albumSongsInfoForModalForm}
           setRerender={setRerender}
         ></UpdateAlbumModal>
       </div>
