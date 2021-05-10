@@ -28,8 +28,8 @@ export default function Navbar() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
-        color={('gray')}
+        // bg={useColorModeValue("gray.620")}
+        color={('white')}
         minH={"60px"}
         minW={"100vw"}
         py={{ base: 2 }}
@@ -57,8 +57,10 @@ export default function Navbar() {
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
+            fontWeight={600}
+
           >
-            Logo
+            MusiCal
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -72,7 +74,7 @@ export default function Navbar() {
           direction={"row"}
           spacing={6}
         >
-          <Button
+          {/* <Button
             as={"a"}
             fontSize={"sm"}
             fontWeight={400}
@@ -80,19 +82,19 @@ export default function Navbar() {
             href={"#"}
           >
             Sign In
-          </Button>
+          </Button> */}
           <Button
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
-            bg={"pink.400"}
+            bg={"green.500"}
             href={"#"}
             _hover={{
-              bg: "pink.300",
+              bg: "green.400",
             }}
           >
-            Sign Up
+            Sign Out
           </Button>
         </Stack>
       </Flex>
@@ -261,38 +263,38 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: "Calendar",
-    children: [
-      {
-        label: "Explore Design Work",
-        subLabel: "Trending Design to inspire you",
-        href: "#",
-      },
-      {
-        label: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Songs",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Albums",
-    href: "#",
-  },
+  // {
+  //   label: "Calendar",
+  //   children: [
+  //     {
+  //       label: "Explore Design Work",
+  //       subLabel: "Trending Design to inspire you",
+  //       href: "#",
+  //     },
+  //     {
+  //       label: "New & Noteworthy",
+  //       subLabel: "Up-and-coming Designers",
+  //       href: "#",
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: "Songs",
+  //   children: [
+  //     {
+  //       label: "Job Board",
+  //       subLabel: "Find your dream design job",
+  //       href: "#",
+  //     },
+  //     {
+  //       label: "Freelance Projects",
+  //       subLabel: "An exclusive list for contract work",
+  //       href: "#",
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: "Albums",
+  //   href: "#",
+  // },
 ];
