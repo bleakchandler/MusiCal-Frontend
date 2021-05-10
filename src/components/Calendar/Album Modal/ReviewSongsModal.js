@@ -34,43 +34,9 @@ const SongReviewModal = ({
   };
 
   var cards = albumSongsInfoForModalForm.map(function (card) {
-    return <li>{card.title}</li>;
-  });
-
-  const albumReviewSubmitHandler = (e) => {
-    hideSongsRatingModal();
-    e.preventDefault();
-    handleAlbumReview({ starRating, comment });
-    setRerender(e);
-  };
-
-  function handlePreviousModal() {
-    showModal();
-    hideSongsRatingModal();
-  }
-
-  return (
-    <>
-      <Modal
-        size="small"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={songsRatingModalIsOpen}
-        onHide={hideSongsRatingModal}
-        onSubmit={albumReviewSubmitHandler}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Review Songs from {albumInfoForModalForm.title} by{" "}
-            {albumInfoForModalForm.artist}
-            <br />
-          </Modal.Title>
-        </Modal.Header>
-
-        <Modal.Header>
-          <p>{cards}</p>
-        </Modal.Header>
-
+    return (
+      <li>
+        {card.title}
         <Modal.Body>
           <Form>
             {["radio"].map((type) => (
@@ -126,7 +92,6 @@ const SongReviewModal = ({
                   <Form.Label>Comment</Form.Label>
                   <Form.Control
                     type="text"
-                    // placeholder={"albumInfoForModalForm.comment}"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                   />
@@ -135,6 +100,44 @@ const SongReviewModal = ({
             ))}
           </Form>
         </Modal.Body>
+      </li>
+    );
+  });
+
+  const albumReviewSubmitHandler = (e) => {
+    hideSongsRatingModal();
+    e.preventDefault();
+    handleAlbumReview({ starRating, comment });
+    setRerender(e);
+  };
+
+  function handlePreviousModal() {
+    showModal();
+    hideSongsRatingModal();
+  }
+
+  return (
+    <>
+      <Modal
+        size="small"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={songsRatingModalIsOpen}
+        onHide={hideSongsRatingModal}
+        onSubmit={albumReviewSubmitHandler}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Review Songs from {albumInfoForModalForm.title} by{" "}
+            {albumInfoForModalForm.artist}
+            <br />
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Header>
+          <p>{cards}</p>
+        </Modal.Header>
+
         <Modal.Footer>
           <Button onClick={handlePreviousModal}>Back to Album Info</Button>
           <Button
