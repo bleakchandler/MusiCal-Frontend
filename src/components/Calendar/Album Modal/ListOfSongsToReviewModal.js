@@ -8,42 +8,38 @@ import "./Modal.css";
 
 const AlbumFormModal = ({
   hideModal,
-  showModal,
-  isOpen,
   albumInfoForModalForm,
   setRerender,
+  showModal,
   showAlbumRatingModal,
   showSongsRatingModal,
   generateNewRandomAlbum,
   currentDayID,
   albumSongsInfoForModalForm,
-  rerender,
   setChosenSongToBeReviewed,
-  chosenSongToBeReviewed,
-  showSongsRatingListModal
-
+  songsRatingListModalIsOpen,
+  hideSongsRatingListModal,
 }) => {
   function openSpotifyLink() {
     window.open(albumInfoForModalForm.spotify_link);
   }
-  function handleGoToAlbumReviewModal() {
-    showAlbumRatingModal();
-    hideModal();
+
+  function handleClickToSongReview(data) {
+    setChosenSongToBeReviewed(data);
+    showSongsRatingModal();
+    hideSongsRatingListModal();
   }
 
-  function handleGoSongReviewListModal() {
-    showSongsRatingListModal();
-    hideModal();
-  }
+  // function checkForAlbumRefreshButton() {
+  //   if (albumInfoForModalForm.id == currentDayID) {
+  //     return true;
+  //   }
+  // }
 
-  function generateNewRandomAlbumHelper() {
-    generateNewRandomAlbum();
-  }
 
-  function checkForAlbumRefreshButton() {
-    if (albumInfoForModalForm.id == currentDayID) {
-      return true;
-    }
+  function handlePreviousModal() {
+    showModal();
+    hideSongsRatingListModal();
   }
 
   var cards = albumSongsInfoForModalForm.map(function (card) {
@@ -51,14 +47,12 @@ const AlbumFormModal = ({
       <li type="1">
         {card.title}
 
-        {card.rating || card.comment ? (
-          <p>
-            {card.rating ? (
-              <p className="font-weight-bold">{card.rating} Stars</p>
-            ) : null}
-            <p className="font-weight-normal">{card.comment}</p>
-          </p>
-        ) : null}
+        <Button
+          onClick={() => handleClickToSongReview(card)}
+          style={{ marginLeft: 390, marginTop:-40 }}
+        >
+          Review
+        </Button>
       </li>
     );
   });
@@ -69,8 +63,8 @@ const AlbumFormModal = ({
         size="small"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        show={isOpen}
-        onHide={hideModal}
+        show={songsRatingListModalIsOpen}
+        onHide={hideSongsRatingListModal}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -96,29 +90,17 @@ const AlbumFormModal = ({
           </Modal.Header>
         ) : null}
 
-        <Modal.Body>
-          <img class="w-100" src={albumInfoForModalForm.album_art} />
-          {/* <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </p> */}
-          <p>
-            <br />
-            {cards}
-          </p>
-        </Modal.Body>
+        <Modal.Body>{cards}</Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={openSpotifyLink}>Spotify</Button>
-
-          {checkForAlbumRefreshButton() ? (
-            <Button onClick={generateNewRandomAlbumHelper}>New Album</Button>
-          ) : null}
-
-          <Button onClick={handleGoSongReviewListModal}>Review Songs</Button>
-
-          <Button onClick={handleGoToAlbumReviewModal}>Review Album</Button>
+          <Button onClick={handlePreviousModal}>Back to Album Info</Button>
+          {/* <Button
+            type="submit"
+            color="purple"
+            onClick={songReviewSubmitHandler}
+          >
+            Submit Review
+          </Button> */}
         </Modal.Footer>
       </Modal>
     </>

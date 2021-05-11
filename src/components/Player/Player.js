@@ -6,6 +6,7 @@ import "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import SeeAlbumInfoModal from "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import AlbumRatingModal from "../Calendar/Album Modal/ReviewAlbumModal";
 import SongsRatingModal from "../Calendar/Album Modal/ReviewSongModal.js";
+import SongsRatingListModal from "../Calendar/Album Modal/ListOfSongsToReviewModal.js";
 import NavBar from "../NavBar/Navbar.js";
 
 function Player({
@@ -29,14 +30,14 @@ function Player({
   );
   const [chosenSongToBeReviewed, setChosenSongToBeReviewed] = useState([]);
 
+  const [albumRatingModalIsOpen, setAlbumRatingModalIsOpen] =
+    React.useState(false);
 
-  const [albumRatingModalIsOpen, setAlbumRatingModalIsOpen] = React.useState(
-    false
-  );
+  const [songsRatingModalIsOpen, setSongsRatingModalIsOpen] =
+    React.useState(false);
 
-  const [songsRatingModalIsOpen, setSongsRatingModalIsOpen] = React.useState(
-    false
-  );
+  const [songsRatingListModalIsOpen, setSongsRatingListModalIsOpen] =
+    React.useState(false);
 
   const showModal = () => {
     setIsOpen(true);
@@ -60,6 +61,14 @@ function Player({
 
   const hideSongsRatingModal = () => {
     setSongsRatingModalIsOpen(false);
+  };
+
+  const showSongsRatingListModal = () => {
+    setSongsRatingListModalIsOpen(true);
+  };
+
+  const hideSongsRatingListModal = () => {
+    setSongsRatingListModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -134,7 +143,7 @@ function Player({
           currentDayID={currentDayID}
           setChosenSongToBeReviewed={setChosenSongToBeReviewed}
           chosenSongToBeReviewed={chosenSongToBeReviewed}
-
+          showSongsRatingListModal={showSongsRatingListModal}
         ></SeeAlbumInfoModal>
 
         <SongsRatingModal
@@ -156,6 +165,20 @@ function Player({
           albumSongsInfoForModalForm={albumSongsInfoForModalForm}
           setRerender={setRerender}
         ></AlbumRatingModal>
+
+        <SongsRatingListModal
+          showSongsRatingModal={showSongsRatingModal}
+          showModal={showModal}
+          albumInfoForModalForm={albumInfoForModalForm}
+          albumSongsInfoForModalForm={albumSongsInfoForModalForm}
+          setAlbumInfoForModalForm={setAlbumInfoForModalForm}
+          setChosenSongToBeReviewed={setChosenSongToBeReviewed}
+          chosenSongToBeReviewed={chosenSongToBeReviewed}
+          showSongsRatingListModal={showSongsRatingListModal}
+          songsRatingListModalIsOpen={songsRatingListModalIsOpen}
+          hideSongsRatingListModal={hideSongsRatingListModal}
+          setRerender={setRerender}
+        ></SongsRatingListModal>
       </div>
     );
   }
