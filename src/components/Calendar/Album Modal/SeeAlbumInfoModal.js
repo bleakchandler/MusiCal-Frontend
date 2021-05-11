@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./AlbumFormModal.css";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
@@ -19,20 +18,21 @@ const AlbumFormModal = ({
   currentDayID,
   albumSongsInfoForModalForm,
   rerender,
+  setChosenSongToBeReviewed,
+  chosenSongToBeReviewed,
 }) => {
-  const [{ albumTracks }, dispatch] = useDataLayerValue();
-
   function openSpotifyLink() {
     window.open(albumInfoForModalForm.spotify_link);
   }
 
-  function handleGoToAlbumReviewModal() {
-    showAlbumRatingModal();
+  function handleClickToSongReview(data) {
+    setChosenSongToBeReviewed(data);
+    showSongsRatingModal();
     hideModal();
   }
 
-  function handleGoToSongsReviewModal() {
-    showSongsRatingModal();
+  function handleGoToAlbumReviewModal() {
+    showAlbumRatingModal();
     hideModal();
   }
 
@@ -46,10 +46,30 @@ const AlbumFormModal = ({
     }
   }
 
-  console.log("albumInfoForModalForm", albumSongsInfoForModalForm);
-
   var cards = albumSongsInfoForModalForm.map(function (card) {
-    return <li type="1">{card.title}</li>;
+    return (
+      <li type="1">
+        {card.title}
+
+        {card.rating || card.comment ? (
+          <p>
+            {card.rating ? (
+              <p className="font-weight-bold">
+                {card.rating} Stars
+              </p>
+            ) : null}
+            <p className="font-weight-normal">{card.comment}</p>
+          </p>
+        ) : null}
+
+        <Button
+          onClick={() => handleClickToSongReview(card)}
+          style={{ marginLeft: 390 }}
+        >
+          Review
+        </Button>
+      </li>
+    );
   });
 
   return (
@@ -60,7 +80,6 @@ const AlbumFormModal = ({
         centered
         show={isOpen}
         onHide={hideModal}
-        // class={test}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -93,11 +112,10 @@ const AlbumFormModal = ({
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
             ac consectetur ac, vestibulum at eros.
           </p> */}
-
- 
-           <p><br/>{cards}</p>
-
-
+          <p>
+            <br />
+            {cards}
+          </p>
         </Modal.Body>
 
         <Modal.Footer>
@@ -108,8 +126,6 @@ const AlbumFormModal = ({
           ) : null}
 
           <Button onClick={handleGoToAlbumReviewModal}>Review Album</Button>
-
-          <Button onClick={handleGoToSongsReviewModal}>Review Songs</Button>
         </Modal.Footer>
       </Modal>
     </>

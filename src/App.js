@@ -25,7 +25,6 @@ function App() {
   const [currentDaysData, setCurrentDaysData] = useState("");
   const [rerender, setRerender] = useState([]);
   const [newRandomAlbum, setNewRandomAlbum] = useState([]);
-  // const [albumTracks, setAlbumTracks] = useState([]);
   const hash = getTokenFromURL();
   const _token = hash.access_token;
   const [refresh, doRefresh] = useState(0);
@@ -51,7 +50,7 @@ function App() {
     }
     return randomSearch;
   }
-  console.log("refresh", refresh);
+  // console.log("refresh", refresh);
 
   useEffect(() => {
     window.location.hash = "";

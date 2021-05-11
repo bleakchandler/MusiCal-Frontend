@@ -5,7 +5,7 @@ import moment from "moment";
 import "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import SeeAlbumInfoModal from "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import AlbumRatingModal from "../Calendar/Album Modal/ReviewAlbumModal";
-import SongsRatingModal from "../Calendar/Album Modal/ReviewSongsModal.js";
+import SongsRatingModal from "../Calendar/Album Modal/ReviewSongModal.js";
 import NavBar from "../NavBar/Navbar.js";
 
 function Player({
@@ -27,6 +27,8 @@ function Player({
   const [albumSongsInfoForModalForm, setAlbumSongsInfoForModalForm] = useState(
     []
   );
+  const [chosenSongToBeReviewed, setChosenSongToBeReviewed] = useState([]);
+
 
   const [albumRatingModalIsOpen, setAlbumRatingModalIsOpen] = React.useState(
     false
@@ -111,6 +113,9 @@ function Player({
             hideModal={hideModal}
             refresh={refresh}
             doRefresh={doRefresh}
+            albumInfoForModalForm={albumInfoForModalForm}
+            albumSongsInfoForModalForm={albumSongsInfoForModalForm}
+            generateNewRandomAlbum={generateNewRandomAlbum}
           />
         </div>
 
@@ -127,6 +132,9 @@ function Player({
           setRerender={setRerender}
           generateNewRandomAlbum={generateNewRandomAlbum}
           currentDayID={currentDayID}
+          setChosenSongToBeReviewed={setChosenSongToBeReviewed}
+          chosenSongToBeReviewed={chosenSongToBeReviewed}
+
         ></SeeAlbumInfoModal>
 
         <SongsRatingModal
@@ -136,6 +144,7 @@ function Player({
           songsRatingModalIsOpen={songsRatingModalIsOpen}
           hideSongsRatingModal={hideSongsRatingModal}
           setRerender={setRerender}
+          chosenSongToBeReviewed={chosenSongToBeReviewed}
         ></SongsRatingModal>
 
         <AlbumRatingModal

@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import "./Calendar.css";
 import moment from "moment";
 import BuildCalendar from "./BuildCalendar";
@@ -21,6 +18,10 @@ function Calendar({
   refresh,
   rerender,
   setAlbumSongsInfoForModalForm,
+  albumInfoForModalForm,
+  albumSongsInfoForModalForm,
+  generateNewRandomAlbum,
+  chosenSongToBeReviewed,
 }) {
   const [{ albums, albumTracks }, dispatch] = useDataLayerValue();
   const [calendar, setCalendar] = useState([]);
@@ -83,11 +84,14 @@ function Calendar({
       if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
           setSelectedDay(day);
-          setAlbumSongsInfoForModalForm(currentDaysData[i].songs);
+          setAlbumSongsInfoForModalForm(
+            currentDaysData[i].songs.sort((a, b) => (a.id > b.id ? 1 : -1))
+          );
           setAlbumInfoForModalForm(currentDaysData[i].album);
         }
       }
     }
+    setRerender(day);
   }
 
   function chooseRandomAlbum() {
@@ -110,31 +114,27 @@ function Calendar({
     const d = moment().format("YYYY-MM-DD");
     if (userDays.length !== 0) {
       userDays.indexOf(d) === -1
-        ? setTracksAndAlbumBackendHelper()
+        ? setAlbumBackendHelper()
         : console.log("album already exists for today");
     }
   }
 
-  function setTracksAndAlbumBackendHelper() {
+  function setAlbumBackendHelper() {
     setDailyAlbumBackend();
   }
 
   useEffect(() => {
     if (refresh != 0) {
-      // console.log("something is happening");
       chooseRandomAlbum();
     }
   }, [refresh]);
 
   useEffect(() => {
     if (refresh != 0) {
-      DELETE();
-      // console.log("sdfsdf")
+      deleteAllSongs();
       refreshDailyAlbumBackend();
-      hideModal();
-      // setRerender(currentDayID)
-
       getAlbumInfoForModal(selectedDay);
+      hideModal();
     }
   }, [dailyAlbumTitle]);
 
@@ -181,13 +181,7 @@ function Calendar({
   }
 
   function addAlbumSongsToBackend(data) {
-    // console.log("addAlbumSongsToBackend was called");
-    // console.log("albumTracks was called", data);
     for (let i = 0, l = albumTracks.items.length; i < l; i++) {
-      console.log(
-        // "title: albumTracks.items[i].name",
-        albumTracks.items[i].name
-      );
       fetch(`http://localhost:3000/songs`, {
         method: "POST",
         body: JSON.stringify({
@@ -205,8 +199,7 @@ function Calendar({
     }
   }
 
-  function DELETE() {
-    console.log("delete hit", currentDayID);
+  function deleteAllSongs() {
     fetch(`http://localhost:3000/songs/${currentDayID}`, {
       method: "DELETE",
     })
@@ -227,32 +220,51 @@ function Calendar({
     return <span>Loading...</span>;
   } else
     return (
-      <div className="calendar">
-        <Header value={value} setValue={setValue} />
-        <div className="body">
-          <div className="day-names">
-            {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
-              <div className="week">{d}</div>
-            ))}
+      <React.Fragment>
+        <div className="dailyAlbumInfo">
+          <div className="todaysInfoBox">
+            <div className="todaysInfoDate">{moment().format("LL")}</div>
           </div>
-          {calendar.map((week) => (
-            <div classname="week">
-              {week.map((day) => (
-                <div className="day" onClick={() => handleAlbumClick(day)}>
-                  <div className={dayStyles(day)}>
-                    {dailyAlbumImage(day)}
-                    <div class="numberCircle"></div>
-                    <div class="dayNumber">
-                      {day.format("D").toString()}
-                      <div />
-                    </div>
-                  </div>
-                </div>
+          <div className="dailyAlbumInfoText">
+            Today's Album:
+            <div style={{ fontSize: 20 }}>
+              {dailyAlbumTitle} by {""}
+              {dailyAlbumArtist}
+            </div>
+          </div>
+          <img
+            class="dailyAlbumArt"
+            src={dailyAlbumArt}
+            onClick={generateNewRandomAlbum}
+          />
+        </div>
+        <div className="calendar">
+          <Header value={value} setValue={setValue} />
+          <div className="body">
+            <div className="day-names">
+              {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
+                <div className="week">{d}</div>
               ))}
             </div>
-          ))}
-        </div>
-      </div>
+            {calendar.map((week) => (
+              <div classname="week">
+                {week.map((day) => (
+                  <div className="day" onClick={() => handleAlbumClick(day)}>
+                    <div className={dayStyles(day)}>
+                      {dailyAlbumImage(day)}
+                      <div class="numberCircle"></div>
+                      <div class="dayNumber">
+                        {day.format("D").toString()}
+                        <div />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>{" "}
+      </React.Fragment>
     );
 }
 
