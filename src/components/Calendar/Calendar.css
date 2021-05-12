@@ -42,10 +42,11 @@
   transform: translateX(-50%);
   position: absolute;
   left: 50%;
-  top: 200%;
+  top: 170%;
   height:200px;
   width: 760px;
   background-color: rgb(78, 77, 77);
+  /* border-radius: 25px; */
 }
 
 .dailyAlbumInfo .todaysInfoBox {
@@ -55,10 +56,11 @@
   box-sizing: border-box;
   transform: translateX(-50%);
   position: absolute;
-  left: 37%;
+  left: 36.9%;
   height:100px;
   width: 560px;
   background-color: rgb(98, 98, 98);
+  
 }
 
 .dailyAlbumInfo .todaysInfoBox .todaysInfoDate {
@@ -69,8 +71,8 @@
 
   position: absolute;
   text-align: left;
-  left: 2%;
-  top:18%;
+  left: 3%;
+  top:19%;
 }
 
 .dailyAlbumInfo .dailyAlbumInfoText {
@@ -79,8 +81,8 @@
   color: white;
   position: absolute;
   text-align: left;
-  left: 2%;
-  top: 60%;
+  left: 3%;
+  top: 62%;
 }
 
 .dailyAlbumInfo .dailyAlbumArt {
@@ -108,23 +110,25 @@
   font-weight: 600;
   position: absolute;
   left: 50%;
-  top: 600%;
+  top: 580%;
   transform: translateX(-50%);
   height: 500px;
 }
 
 .calendar .header {
-  background: #272929;
+  /* background: #272929; */
+  background: rgb(98, 98, 98);
   background-size: 400% 400%;
   font-size: 1.2rem;
 
   animation: gradient 15s ease infinite;
   text-align: center;
   min-height: 2rem;
-  line-height: 2rem;
+  line-height: 3rem;
   color: white;
   font-weight: 700;
   display: flex;
+  /* border-radius: 25px; */
 }
 
 @keyframes gradient {
@@ -168,9 +172,9 @@
 }
 
 .calendar .week {
-  background: #272929;
+  background: rgb(98, 98, 98);
   width: calc(100% / 7);
-  /* height: 44px; */
+  height: 44px;
   /* height: calc(100% / 5); */
   /* line-height: (100% / 5); */
   text-align: center;
@@ -178,6 +182,9 @@
   /* font-display: center; */
   color: white;
   font-weight: 400;
+  /* display: inline-block; */
+  vertical-align: middle;
+  line-height:42px;
 }
 .calendar .week div {
   width: 100%;
@@ -207,7 +214,7 @@
   display: inline-block;
 
   padding: 0;
-  right: 0.6px;
+  right: 1px;
   bottom: 20px;
   margin: 0;
   color: white;

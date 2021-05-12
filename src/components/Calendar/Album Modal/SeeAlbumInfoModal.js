@@ -53,6 +53,7 @@ const AlbumFormModal = ({
               <p className="font-weight-bold">{card.rating} Stars</p>
             ) : null}
             <p className="font-weight-normal">{card.comment}</p>
+            <br/>
           </p>
         ) : null}
       </li>

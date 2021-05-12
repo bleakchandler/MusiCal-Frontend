@@ -39,7 +39,7 @@ const SongsReviewListModal = ({
     e.preventDefault();
     handleSongReview({ starRating, comment });
     hideSongsRatingModal();
-    showModal();
+    hideSongsRatingModal();
   };
 
   function handlePreviousModal() {
