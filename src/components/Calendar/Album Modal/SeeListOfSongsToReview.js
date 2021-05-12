@@ -36,7 +36,6 @@ const AlbumFormModal = ({
   //   }
   // }
 
-
   function handlePreviousModal() {
     showModal();
     hideSongsRatingListModal();
@@ -49,7 +48,7 @@ const AlbumFormModal = ({
 
         <Button
           onClick={() => handleClickToSongReview(card)}
-          style={{ marginLeft: 390, marginTop:-40 }}
+          style={{ marginLeft: 390, marginTop: -40 }}
         >
           Review
         </Button>
@@ -74,21 +73,6 @@ const AlbumFormModal = ({
             </Form.Text>
           </Modal.Title>
         </Modal.Header>
-
-        {albumInfoForModalForm.rating ? (
-          <Modal.Header>
-            <Modal.Title id="contained-modal-title-vcenter">
-              {albumInfoForModalForm.rating ? (
-                <Form.Text className="font-weight-bold">
-                  {albumInfoForModalForm.rating} Stars
-                </Form.Text>
-              ) : null}
-              <Form.Text className="font-weight-normal">
-                {albumInfoForModalForm.comment}
-              </Form.Text>
-            </Modal.Title>
-          </Modal.Header>
-        ) : null}
 
         <Modal.Body>{cards}</Modal.Body>
 

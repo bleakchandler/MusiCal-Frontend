@@ -42,13 +42,13 @@ const AlbumReviewModal = ({
       .then((data) => {
         setRerender(data);
       });
+      
   }
 
   const albumReviewSubmitHandler = (e) => {
     hideAlbumRatingModal();
     e.preventDefault();
     handleAlbumReview({ starRating, comment });
-    setRerender(e);
   };
 
   function handlePreviousModal() {

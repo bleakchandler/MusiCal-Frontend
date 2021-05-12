@@ -35,9 +35,30 @@ function Calendar({
   const [dailyAlbumReleaseDate, setDailyAlbumReleaseDate] = useState("");
   const userDays = currentDaysData.map((a) => a.date);
 
+  const [albumInfoForBox, setAlbumInfoForBox] = useState([]);
+  const [albumSongsInfoForBox, setAlbumSongsInfoForBox] = useState(
+    []
+  );
+
+  function setTodaysAlbumForBox() {
+    for (let i = 0, l = currentDaysData.length; i < l; i++) {
+      if ((moment().format("YYYY-MM-DD")) == currentDaysData[i].date) {
+        if (currentDaysData[i].album != null) {
+          setAlbumInfoForBox(currentDaysData[i].album);
+        }
+      }
+    }
+  }
+
   useEffect(() => {
     setCalendar(BuildCalendar(value));
+    setTodaysAlbumForBox()
   }, [value]);
+
+  useEffect(() => {
+    setTodaysAlbumForBox();
+    getAlbumInfoForModal(moment())
+  }, [rerender]);
 
   useEffect(() => {
     if (
@@ -76,7 +97,7 @@ function Calendar({
           return <img src={currentDaysData[i].album.album_art} />;
         }
       }
-    }
+    }   
   }
 
   function getAlbumInfoForModal(day) {
@@ -88,10 +109,10 @@ function Calendar({
             currentDaysData[i].songs.sort((a, b) => (a.id > b.id ? 1 : -1))
           );
           setAlbumInfoForModalForm(currentDaysData[i].album);
+          setTodaysAlbumForBox()
         }
       }
     }
-    setRerender(day);
   }
 
   function chooseRandomAlbum() {
@@ -115,7 +136,7 @@ function Calendar({
     if (userDays.length !== 0) {
       userDays.indexOf(d) === -1
         ? setAlbumBackendHelper()
-        : console.log("album already exists for today");
+        : getAlbumInfoForModal(moment());
     }
   }
 
@@ -134,7 +155,6 @@ function Calendar({
       deleteAllSongs();
       refreshDailyAlbumBackend();
       getAlbumInfoForModal(selectedDay);
-      hideModal();
     }
   }, [dailyAlbumTitle]);
 
@@ -197,6 +217,7 @@ function Calendar({
         .then((r) => r.json())
         .then((data) => setRerender(data));
     }
+    setTodaysAlbumForBox() 
   }
 
   function deleteAllSongs() {
@@ -228,13 +249,13 @@ function Calendar({
           <div className="dailyAlbumInfoText">
             Today's Album:
             <div style={{ fontSize: 20 }}>
-              {dailyAlbumTitle} by {""}
-              {dailyAlbumArtist}
+              {albumInfoForBox.title} by {""}
+              {albumInfoForBox.artist}
             </div>
           </div>
           <img
             class="dailyAlbumArt"
-            src={dailyAlbumArt}
+            src={albumInfoForBox.album_art}
             onClick={generateNewRandomAlbum}
           />
         </div>

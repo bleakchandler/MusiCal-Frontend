@@ -11,6 +11,7 @@ const SongsReviewListModal = ({
   showModal,
   songsRatingModalIsOpen,
   chosenSongToBeReviewed,
+  doRefresh,
 }) => {
   const [starRating, setStarRating] = useState("");
   const [comment, setComment] = useState("");
@@ -30,14 +31,15 @@ const SongsReviewListModal = ({
     })
       .then((r) => r.json())
       .then((data) => setRerender(data));
+     
   };
 
   const songReviewSubmitHandler = (e) => {
-    hideSongsRatingModal();
+    // hideSongsRatingModal();
     e.preventDefault();
     handleSongReview({ starRating, comment });
-    setRerender("erer");
     hideSongsRatingModal();
+    showModal();
   };
 
   function handlePreviousModal() {

@@ -10,7 +10,7 @@ import Login from "./components/Login/Login.js";
 import { getTokenFromURL } from "./components/Spotify Config/SpotifyConfig.js";
 import SpotifyWebApi from "spotify-web-api-js";
 import { useDataLayerValue } from "./components/DataLayer.js";
-import Player from "./components/Player/Player.js";
+import Body from "./components/Body/Body.js";
 import moment from "moment";
 import { ChakraProvider } from "@chakra-ui/react";
 import Calendar from "./components/Calendar/Calendar.js";
@@ -173,7 +173,7 @@ function App() {
       <ChakraProvider>
         <div className="App">
           {token ? (
-            <Player
+            <Body
               rerender={rerender}
               spotify={spotify}
               doRefresh={doRefresh}

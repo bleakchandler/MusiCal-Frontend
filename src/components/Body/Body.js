@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./Player.css";
+import "./Body.css";
 import Calendar from "../Calendar/Calendar.js";
 import moment from "moment";
 import "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import SeeAlbumInfoModal from "../Calendar/Album Modal/SeeAlbumInfoModal.js";
 import AlbumRatingModal from "../Calendar/Album Modal/ReviewAlbumModal";
 import SongsRatingModal from "../Calendar/Album Modal/ReviewSongModal.js";
-import SongsRatingListModal from "../Calendar/Album Modal/ListOfSongsToReviewModal.js";
+import SongsRatingListModal from "../Calendar/Album Modal/SeeListOfSongsToReview.js";
 import NavBar from "../NavBar/Navbar.js";
 
-function Player({
+function Body({
   spotify,
   todaysDate,
   currentDaysData,
@@ -105,8 +105,8 @@ function Player({
     return <span>Loading...</span>;
   } else {
     return (
-      <div className="player">
-        <div className="player__body">
+      <div className="Body">
+        <div className="Body__body">
           <NavBar />
           <Calendar
             rerender={rerender}
@@ -147,6 +147,7 @@ function Player({
         ></SeeAlbumInfoModal>
 
         <SongsRatingModal
+          doRefresh={doRefresh}
           showModal={showModal}
           albumSongsInfoForModalForm={albumSongsInfoForModalForm}
           albumInfoForModalForm={albumInfoForModalForm}
@@ -184,4 +185,4 @@ function Player({
   }
 }
 
-export default Player;
+export default Body;

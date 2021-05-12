@@ -36,10 +36,6 @@ const AlbumFormModal = ({
     hideModal();
   }
 
-  function generateNewRandomAlbumHelper() {
-    generateNewRandomAlbum();
-  }
-
   function checkForAlbumRefreshButton() {
     if (albumInfoForModalForm.id == currentDayID) {
       return true;
@@ -98,11 +94,6 @@ const AlbumFormModal = ({
 
         <Modal.Body>
           <img class="w-100" src={albumInfoForModalForm.album_art} />
-          {/* <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </p> */}
           <p>
             <br />
             {cards}
@@ -113,7 +104,7 @@ const AlbumFormModal = ({
           <Button onClick={openSpotifyLink}>Spotify</Button>
 
           {checkForAlbumRefreshButton() ? (
-            <Button onClick={generateNewRandomAlbumHelper}>New Album</Button>
+            <Button onClick={generateNewRandomAlbum}>New Album</Button>
           ) : null}
 
           <Button onClick={handleGoSongReviewListModal}>Review Songs</Button>
