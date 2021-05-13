@@ -151,19 +151,7 @@ function App() {
       });
   }
 
-  // function getAlbumTracks(albumID) {
-  //   spotify.getAlbumTracks(albumID).then(
-  //     function (data) {
-  //       setAlbumTracks(data);
-  //     },
-  //     function (err) {
-  //       console.error(err);
-  //     }
-  //   );
-  // }
-
   useEffect(() => {
-    // console.log("this slut was called")
     fetch(`http://localhost:3000/days`)
       .then((r) => r.json())
       .then((data) =>
@@ -172,7 +160,6 @@ function App() {
   }, [rerender]);
 
   useEffect(() => {
-    console.log("this slut was called")
     fetch(`http://localhost:3000/days`)
       .then((r) => r.json())
       .then((data) =>
