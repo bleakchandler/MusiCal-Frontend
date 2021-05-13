@@ -8,20 +8,13 @@ import "./Modal.css";
 
 const AlbumFormModal = ({
   hideModal,
-  showModal,
   isOpen,
   albumInfoForModalForm,
-  setRerender,
   showAlbumRatingModal,
-  showSongsRatingModal,
   generateNewRandomAlbum,
   currentDayID,
   albumSongsInfoForModalForm,
-  rerender,
-  setChosenSongToBeReviewed,
-  chosenSongToBeReviewed,
-  showSongsRatingListModal
-
+  showSongsRatingListModal,
 }) => {
   function openSpotifyLink() {
     window.open(albumInfoForModalForm.spotify_link);
@@ -42,18 +35,30 @@ const AlbumFormModal = ({
     }
   }
 
+  function numberOfStars(rating) {
+    if (rating == 1) {
+      return "⭑";
+    } else if (rating == 2) {
+      return "⭑⭑";
+    } else if (rating == 3) {
+      return "⭑⭑⭑";
+    } else if (rating == 4) {
+      return "⭑⭑⭑⭑";
+    } else if (rating == 5) {
+      return "⭑⭑⭑⭑⭑";
+    }
+  }
+
   var cards = albumSongsInfoForModalForm.map(function (card) {
     return (
       <li type="1">
         {card.title}
-
         {card.rating || card.comment ? (
-          <p>
+          <p style={{ textAlign: "right", marginTop: -25 }}>
             {card.rating ? (
-              <p className="font-weight-bold">{card.rating} Stars</p>
+              <p className="font-weight-bold"> {numberOfStars(card.rating)}</p>
             ) : null}
             <p className="font-weight-normal">{card.comment}</p>
-            <br/>
           </p>
         ) : null}
       </li>
@@ -83,7 +88,7 @@ const AlbumFormModal = ({
             <Modal.Title id="contained-modal-title-vcenter">
               {albumInfoForModalForm.rating ? (
                 <Form.Text className="font-weight-bold">
-                  {albumInfoForModalForm.rating} Stars
+                  {numberOfStars(albumInfoForModalForm.rating)}
                 </Form.Text>
               ) : null}
               <Form.Text className="font-weight-normal">

@@ -163,6 +163,7 @@ function Body({
           hideSongsRatingModal={hideSongsRatingModal}
           setRerender={setRerender}
           chosenSongToBeReviewed={chosenSongToBeReviewed}
+          setActivateRerender={setActivateRerender}
         ></SongsRatingModal>
 
         <AlbumRatingModal

@@ -14,13 +14,13 @@ const AlbumReviewModal = ({
   setRerender,
   showModal,
   setAlbumRating,
-  setActivateRerender
+  setActivateRerender,
 }) => {
   const [starRating, setStarRating] = useState("");
   const [comment, setComment] = useState("");
 
   const handleAlbumReview = ({ starRating, comment }) => {
-    console.log("handle review called", starRating)
+    console.log("handle review called", starRating);
     fetch(`http://localhost:3000/albums/${albumInfoForModalForm.id}`, {
       method: "PATCH",
       body: JSON.stringify({

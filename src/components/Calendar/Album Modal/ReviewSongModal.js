@@ -7,11 +7,11 @@ import "./Modal.css";
 
 const SongsReviewListModal = ({
   hideSongsRatingModal,
-  setRerender,
   showModal,
   songsRatingModalIsOpen,
   chosenSongToBeReviewed,
   doRefresh,
+  setActivateRerender,
 }) => {
   const [starRating, setStarRating] = useState("");
   const [comment, setComment] = useState("");
@@ -30,14 +30,12 @@ const SongsReviewListModal = ({
       },
     })
       .then((r) => r.json())
-      .then((data) => setRerender(data));
-     
+      .then((data) => setActivateRerender(data));
   };
 
   const songReviewSubmitHandler = (e) => {
     e.preventDefault();
     handleSongReview({ starRating, comment });
-    hideSongsRatingModal();
     hideSongsRatingModal();
   };
 
@@ -125,7 +123,6 @@ const SongsReviewListModal = ({
         </Modal.Body>
 
         <Modal.Footer>
-          {/* <Button onClick={handleSongsListReviewModal}>Song Review List</Button> */}
           <Button onClick={handlePreviousModal}>Back to Album Info</Button>
           <Button
             type="submit"

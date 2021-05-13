@@ -30,21 +30,40 @@ const AlbumFormModal = ({
     hideSongsRatingListModal();
   }
 
-  // function checkForAlbumRefreshButton() {
-  //   if (albumInfoForModalForm.id == currentDayID) {
-  //     return true;
-  //   }
-  // }
-
   function handlePreviousModal() {
     showModal();
     hideSongsRatingListModal();
+  }
+
+  function numberOfStars(rating) {
+    if (rating == 1) {
+      return "⭑";
+    } else if (rating == 2) {
+      return "⭑⭑";
+    } else if (rating == 3) {
+      return "⭑⭑⭑";
+    } else if (rating == 4) {
+      return "⭑⭑⭑⭑";
+    } else if (rating == 5) {
+      return "⭑⭑⭑⭑⭑";
+    }
   }
 
   var cards = albumSongsInfoForModalForm.map(function (card) {
     return (
       <li type="1">
         {card.title}
+
+        {card.rating || card.comment ? (
+          <p>
+            {card.rating ? (
+              <p className="font-weight-bold" >
+                {numberOfStars(card.rating)}
+              </p>
+            ) : null}
+            <p className="font-weight-normal">{card.comment}</p>
+          </p>
+        ) : null}
 
         <Button
           onClick={() => handleClickToSongReview(card)}
@@ -78,13 +97,6 @@ const AlbumFormModal = ({
 
         <Modal.Footer>
           <Button onClick={handlePreviousModal}>Back to Album Info</Button>
-          {/* <Button
-            type="submit"
-            color="purple"
-            onClick={songReviewSubmitHandler}
-          >
-            Submit Review
-          </Button> */}
         </Modal.Footer>
       </Modal>
     </>

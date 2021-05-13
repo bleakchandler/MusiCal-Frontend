@@ -23,7 +23,7 @@ function Calendar({
   generateNewRandomAlbum,
   chosenSongToBeReviewed,
   albumRating,
-  activateRerender
+  activateRerender,
 }) {
   const [{ albums, albumTracks }, dispatch] = useDataLayerValue();
   const [calendar, setCalendar] = useState([]);
@@ -62,7 +62,6 @@ function Calendar({
       getAlbumInfoForModal(selectedDay);
     }
   }, [currentDaysData]);
-
 
   useEffect(() => {
     if (selectedDay != 0) {
@@ -130,7 +129,7 @@ function Calendar({
   }
 
   function getAlbumInfoForModal(day) {
-    console.log("day", day.format("YYYY-MM-DD"))
+    console.log("day", day.format("YYYY-MM-DD"));
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
       if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
@@ -148,7 +147,6 @@ function Calendar({
       }
     }
   }
-
 
   function chooseRandomAlbum() {
     console.log("chooseRandomAlbum was called", albums);
