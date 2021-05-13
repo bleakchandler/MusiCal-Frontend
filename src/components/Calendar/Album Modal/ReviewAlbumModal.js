@@ -13,12 +13,14 @@ const AlbumReviewModal = ({
   albumSongsInfoForModalForm,
   setRerender,
   showModal,
+  setAlbumRating,
+  setActivateRerender
 }) => {
   const [starRating, setStarRating] = useState("");
   const [comment, setComment] = useState("");
 
   const handleAlbumReview = ({ starRating, comment }) => {
-    console.log(starRating, comment);
+    console.log("handle review called", starRating)
     fetch(`http://localhost:3000/albums/${albumInfoForModalForm.id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -31,7 +33,7 @@ const AlbumReviewModal = ({
       },
     })
       .then((r) => r.json())
-      .then((data) => setRerender(data));
+      .then((data) => setActivateRerender(data));
   };
 
   function albumDeleteHandler() {
@@ -42,13 +44,12 @@ const AlbumReviewModal = ({
       .then((data) => {
         setRerender(data);
       });
-      
   }
 
   const albumReviewSubmitHandler = (e) => {
-    hideAlbumRatingModal();
     e.preventDefault();
     handleAlbumReview({ starRating, comment });
+    hideAlbumRatingModal();
   };
 
   function handlePreviousModal() {

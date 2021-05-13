@@ -22,6 +22,8 @@ function Calendar({
   albumSongsInfoForModalForm,
   generateNewRandomAlbum,
   chosenSongToBeReviewed,
+  albumRating,
+  activateRerender
 }) {
   const [{ albums, albumTracks }, dispatch] = useDataLayerValue();
   const [calendar, setCalendar] = useState([]);
@@ -36,13 +38,11 @@ function Calendar({
   const userDays = currentDaysData.map((a) => a.date);
 
   const [albumInfoForBox, setAlbumInfoForBox] = useState([]);
-  const [albumSongsInfoForBox, setAlbumSongsInfoForBox] = useState(
-    []
-  );
+  const [albumSongsInfoForBox, setAlbumSongsInfoForBox] = useState([]);
 
   function setTodaysAlbumForBox() {
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
-      if ((moment().format("YYYY-MM-DD")) == currentDaysData[i].date) {
+      if (moment().format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
           setAlbumInfoForBox(currentDaysData[i].album);
         }
@@ -52,13 +52,22 @@ function Calendar({
 
   useEffect(() => {
     setCalendar(BuildCalendar(value));
-    setTodaysAlbumForBox()
+    setTodaysAlbumForBox();
   }, [value]);
 
   useEffect(() => {
-    setTodaysAlbumForBox();
-    getAlbumInfoForModal(moment())
-  }, [rerender]);
+    if (selectedDay != 0) {
+      console.log("rerender called", currentDaysData);
+      setTodaysAlbumForBox();
+      getAlbumInfoForModal(selectedDay);
+    }
+  }, [currentDaysData]);
+
+
+  useEffect(() => {
+    if (selectedDay != 0) {
+    }
+  }, [albumInfoForModalForm]);
 
   useEffect(() => {
     if (
@@ -70,6 +79,26 @@ function Calendar({
       setDailyAlbumBackendCheck();
     }
   }, [dailyAlbum]);
+
+  useEffect(() => {
+    if (refresh != 0) {
+      chooseRandomAlbum();
+    }
+  }, [refresh]);
+
+  useEffect(() => {
+    if (refresh != 0) {
+      deleteAllSongs();
+      refreshDailyAlbumBackend();
+      getAlbumInfoForModal(selectedDay);
+    }
+  }, [dailyAlbumTitle]);
+
+  useEffect(() => {
+    if (selectedDay != 0) {
+      showModal();
+    }
+  }, [activateRerender]);
 
   function isSelected(day) {
     return value.isSame(day, "day");
@@ -97,10 +126,11 @@ function Calendar({
           return <img src={currentDaysData[i].album.album_art} />;
         }
       }
-    }   
+    }
   }
 
   function getAlbumInfoForModal(day) {
+    console.log("day", day.format("YYYY-MM-DD"))
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
       if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
@@ -109,11 +139,16 @@ function Calendar({
             currentDaysData[i].songs.sort((a, b) => (a.id > b.id ? 1 : -1))
           );
           setAlbumInfoForModalForm(currentDaysData[i].album);
-          setTodaysAlbumForBox()
+
+          // handleAlbumClick(day);
+          // showModal();
+          // setTodaysAlbumForBox();
+          // console.log("called", currentDaysData[i].album)
         }
       }
     }
   }
+
 
   function chooseRandomAlbum() {
     console.log("chooseRandomAlbum was called", albums);
@@ -135,28 +170,10 @@ function Calendar({
     const d = moment().format("YYYY-MM-DD");
     if (userDays.length !== 0) {
       userDays.indexOf(d) === -1
-        ? setAlbumBackendHelper()
+        ? setDailyAlbumBackend()
         : getAlbumInfoForModal(moment());
     }
   }
-
-  function setAlbumBackendHelper() {
-    setDailyAlbumBackend();
-  }
-
-  useEffect(() => {
-    if (refresh != 0) {
-      chooseRandomAlbum();
-    }
-  }, [refresh]);
-
-  useEffect(() => {
-    if (refresh != 0) {
-      deleteAllSongs();
-      refreshDailyAlbumBackend();
-      getAlbumInfoForModal(selectedDay);
-    }
-  }, [dailyAlbumTitle]);
 
   function setDailyAlbumBackend() {
     fetch(`http://localhost:3000/albums`, {
@@ -217,7 +234,7 @@ function Calendar({
         .then((r) => r.json())
         .then((data) => setRerender(data));
     }
-    setTodaysAlbumForBox() 
+    setTodaysAlbumForBox();
   }
 
   function deleteAllSongs() {
@@ -226,7 +243,7 @@ function Calendar({
     })
       .then((response) => response.json())
       .then((data) => {
-        setRerender(currentDayID);
+        setRerender(data);
       });
   }
 

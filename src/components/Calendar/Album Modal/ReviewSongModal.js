@@ -35,7 +35,6 @@ const SongsReviewListModal = ({
   };
 
   const songReviewSubmitHandler = (e) => {
-    // hideSongsRatingModal();
     e.preventDefault();
     handleSongReview({ starRating, comment });
     hideSongsRatingModal();

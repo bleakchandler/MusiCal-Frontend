@@ -28,6 +28,10 @@ function App() {
   const hash = getTokenFromURL();
   const _token = hash.access_token;
   const [refresh, doRefresh] = useState(0);
+  const [albumRating, setAlbumRating] = useState([]);
+
+  const [activateRerender, setActivateRerender] = useState([]);
+
 
   function getRandomSearch() {
     // A list of all characters that can be chosen.
@@ -159,12 +163,22 @@ function App() {
   // }
 
   useEffect(() => {
+    // console.log("this slut was called")
     fetch(`http://localhost:3000/days`)
       .then((r) => r.json())
       .then((data) =>
         setCurrentDaysData(data.filter((dayObj) => dayObj.user_id === 1))
       );
   }, [rerender]);
+
+  useEffect(() => {
+    console.log("this slut was called")
+    fetch(`http://localhost:3000/days`)
+      .then((r) => r.json())
+      .then((data) =>
+        setCurrentDaysData(data.filter((dayObj) => dayObj.user_id === 1))
+      );
+  }, [activateRerender]);
 
   if (currentDaysData.length == 0) {
     return <span>Loading...</span>;
@@ -183,6 +197,10 @@ function App() {
               generateNewRandomAlbum={generateNewRandomAlbum}
               newRandomAlbum={newRandomAlbum}
               refresh={refresh}
+              albumRating={albumRating}
+              setAlbumRating={setAlbumRating}
+              setActivateRerender={setActivateRerender}
+              activateRerender={activateRerender}
             />
           ) : (
             <Login />
@@ -194,16 +212,3 @@ function App() {
 }
 
 export default App;
-
-// return (
-//   <BrowserRouter>
-//   <Switch>
-//     <Route path="/">
-//       <Login />
-//       {/* <Landing /> */}
-//       {/* <NavBar />
-//       <Body /> */}
-//     </Route>
-//   </Switch>
-// </BrowserRouter>
-// );

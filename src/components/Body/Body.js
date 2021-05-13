@@ -19,6 +19,10 @@ function Body({
   refresh,
   rerender,
   doRefresh,
+  albumRating,
+  setAlbumRating,
+  setActivateRerender,
+  activateRerender
 }) {
   const [currentDayID, setCurrentDayID] = useState([]);
   const userDays = currentDaysData.map((a) => a.date);
@@ -29,6 +33,8 @@ function Body({
     []
   );
   const [chosenSongToBeReviewed, setChosenSongToBeReviewed] = useState([]);
+
+
 
   const [albumRatingModalIsOpen, setAlbumRatingModalIsOpen] =
     React.useState(false);
@@ -125,6 +131,8 @@ function Body({
             albumInfoForModalForm={albumInfoForModalForm}
             albumSongsInfoForModalForm={albumSongsInfoForModalForm}
             generateNewRandomAlbum={generateNewRandomAlbum}
+            albumRating={albumRating}
+            activateRerender={activateRerender}
           />
         </div>
 
@@ -165,6 +173,8 @@ function Body({
           albumInfoForModalForm={albumInfoForModalForm}
           albumSongsInfoForModalForm={albumSongsInfoForModalForm}
           setRerender={setRerender}
+          setAlbumRating={setAlbumRating}
+          setActivateRerender={setActivateRerender}
         ></AlbumRatingModal>
 
         <SongsRatingListModal
