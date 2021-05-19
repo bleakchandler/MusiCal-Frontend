@@ -4,14 +4,14 @@
     display: grid;
     place-items: center;
     height: 100vh;
-    background-color: black;
+    background-color:rgb(30, 30, 30);
     font-family: "Source Sans Pro";
     font-weight: 500;
   }
   
   .login > img {
     width: auto;
-    height: 200px;
+    height: 100px;
   }
   
   .login > a {

@@ -36,7 +36,6 @@ function Calendar({
   const [dailyAlbumSpotifyLink, setDailyAlbumSpotifyLink] = useState("");
   const [dailyAlbumReleaseDate, setDailyAlbumReleaseDate] = useState("");
   const userDays = currentDaysData.map((a) => a.date);
-
   const [albumInfoForBox, setAlbumInfoForBox] = useState([]);
   const [albumSongsInfoForBox, setAlbumSongsInfoForBox] = useState([]);
 
@@ -138,11 +137,6 @@ function Calendar({
             currentDaysData[i].songs.sort((a, b) => (a.id > b.id ? 1 : -1))
           );
           setAlbumInfoForModalForm(currentDaysData[i].album);
-
-          // handleAlbumClick(day);
-          // showModal();
-          // setTodaysAlbumForBox();
-          // console.log("called", currentDaysData[i].album)
         }
       }
     }
@@ -165,9 +159,9 @@ function Calendar({
   }
 
   function setDailyAlbumBackendCheck() {
-    const d = moment().format("YYYY-MM-DD");
+    const day = moment().format("YYYY-MM-DD");
     if (userDays.length !== 0) {
-      userDays.indexOf(d) === -1
+      userDays.indexOf(day) === -1
         ? setDailyAlbumBackend()
         : getAlbumInfoForModal(moment());
     }

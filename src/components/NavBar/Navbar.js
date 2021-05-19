@@ -31,16 +31,18 @@ export default function Navbar() {
   return (
     <Box>
       <Flex
-        // bg={useColorModeValue("gray.620")}
+        bg={useColorModeValue("red.620")}
+        // backgroundColor={"rgb(48, 47, 47)"}
         color={"white"}
         minH={"60px"}
+        height={"10px"}
         minW={"100vw"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
+        // align={"center"}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -90,11 +92,16 @@ export default function Navbar() {
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
+            bottom={"10px"}
             bg={"green.500"}
             href={"#"}
             _hover={{
               bg: "green.400",
-            }}
+            }
+            
+          }
+
+            
           >
             Sign Out
           </Button>
