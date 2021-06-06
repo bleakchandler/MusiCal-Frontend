@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDataLayerValue } from "../../DataLayer.js";
 import "./Modal.css";
 
 const AlbumFormModal = ({
-  hideModal,
   albumInfoForModalForm,
-  setRerender,
   showModal,
-  showAlbumRatingModal,
   showSongsRatingModal,
-  generateNewRandomAlbum,
-  currentDayID,
   albumSongsInfoForModalForm,
   setChosenSongToBeReviewed,
   songsRatingListModalIsOpen,
   hideSongsRatingListModal,
 }) => {
-  function openSpotifyLink() {
-    window.open(albumInfoForModalForm.spotify_link);
-  }
-
   function handleClickToSongReview(data) {
     setChosenSongToBeReviewed(data);
     showSongsRatingModal();
@@ -57,9 +47,7 @@ const AlbumFormModal = ({
         {card.rating || card.comment ? (
           <p>
             {card.rating ? (
-              <p className="font-weight-bold" >
-                {numberOfStars(card.rating)}
-              </p>
+              <p className="font-weight-bold">{numberOfStars(card.rating)}</p>
             ) : null}
             <p className="font-weight-normal">{card.comment}</p>
           </p>

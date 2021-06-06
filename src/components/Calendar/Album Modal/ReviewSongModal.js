@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
@@ -10,12 +10,10 @@ const SongsReviewListModal = ({
   showModal,
   songsRatingModalIsOpen,
   chosenSongToBeReviewed,
-  doRefresh,
   setActivateRerender,
 }) => {
   const [starRating, setStarRating] = useState("");
   const [comment, setComment] = useState("");
-
   const handleSongReview = ({ starRating, comment }) => {
     console.log(starRating, comment);
     fetch(`http://localhost:3000/songs/${chosenSongToBeReviewed.id}`, {

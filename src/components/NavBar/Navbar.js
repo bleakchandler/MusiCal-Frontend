@@ -22,9 +22,6 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 
-
-
-
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
@@ -97,11 +94,7 @@ export default function Navbar() {
             href={"#"}
             _hover={{
               bg: "green.400",
-            }
-            
-          }
-
-            
+            }}
           >
             Sign Out
           </Button>

@@ -33,9 +33,6 @@ function Body({
     []
   );
   const [chosenSongToBeReviewed, setChosenSongToBeReviewed] = useState([]);
-
-
-
   const [albumRatingModalIsOpen, setAlbumRatingModalIsOpen] =
     React.useState(false);
 

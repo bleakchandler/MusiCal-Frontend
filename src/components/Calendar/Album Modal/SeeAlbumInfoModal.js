@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDataLayerValue } from "../../DataLayer.js";
 import "./Modal.css";
 
 const AlbumFormModal = ({

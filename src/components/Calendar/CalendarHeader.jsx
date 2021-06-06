@@ -17,20 +17,12 @@ function calendarHeader({ value, setValue }) {
     return value.clone().add(1, "month");
   }
 
-  function thisMonth() {
-    return value.isSame(new Date(), "month");
-  }
+  // function thisMonth() {
+  //   return value.isSame(new Date(), "month");
+  // }
 
   return (
     <div className="header">
-      
-      {/* <div
-        className="previous"
-        onClick={() => !thisMonth() && setValue(previousMonth())}
-      >
-        {!thisMonth() ? String.fromCharCode(171) : null}
-      </div> */}
-
       <div className="previous" onClick={() => setValue(previousMonth())}>
         {String.fromCharCode(8678)}
       </div>

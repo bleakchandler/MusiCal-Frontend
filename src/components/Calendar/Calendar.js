@@ -37,7 +37,6 @@ function Calendar({
   const [dailyAlbumReleaseDate, setDailyAlbumReleaseDate] = useState("");
   const userDays = currentDaysData.map((a) => a.date);
   const [albumInfoForBox, setAlbumInfoForBox] = useState([]);
-  const [albumSongsInfoForBox, setAlbumSongsInfoForBox] = useState([]);
 
   function setTodaysAlbumForBox() {
     for (let i = 0, l = currentDaysData.length; i < l; i++) {

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App.js"
 // import * as serviceWorker from './serviceWorker';
 import { DataLayer } from './components/DataLayer.js';
 import reducer,{ initialState } from './components/Reducer.js';
-
-
 
 ReactDOM.render(
   <React.StrictMode>
