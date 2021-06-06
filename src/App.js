@@ -7,8 +7,6 @@ import { useDataLayerValue } from "./components/DataLayer.js";
 import Body from "./components/Body/Body.js";
 import { ChakraProvider } from "@chakra-ui/react";
 
-const spotify = new SpotifyWebApi();
-
 function App() {
   const [{ token }, dispatch] = useDataLayerValue();
   const randomOffset = Math.floor(Math.random() * 100);
@@ -21,6 +19,7 @@ function App() {
   const [refresh, doRefresh] = useState(0);
   const [albumRating, setAlbumRating] = useState([]);
   const [activateRerender, setActivateRerender] = useState([]);
+  const spotify = new SpotifyWebApi();
 
   function getRandomSearch() {
     // A list of all characters that can be chosen.
@@ -59,18 +58,6 @@ function App() {
           user,
         });
       });
-
-      // if (_token) {
-      //   fetch(`https://api.spotify.com/v1/me`, {
-      //     method: "GET",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: 'Bearer ' + _token,
-      //     },
-      //   })
-      //     .then((r) => r.json())
-      //     .then((data) => console.log("user data is",data));
-      // }
 
       //where random albums are pulled
       spotify

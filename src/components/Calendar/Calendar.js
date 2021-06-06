@@ -47,7 +47,7 @@ function Calendar({
   }, [value]);
 
   useEffect(() => {
-    if (selectedDay !=- 0) {
+    if (selectedDay != -0) {
       console.log("rerender called", currentDaysData);
       setTodaysAlbumForBox();
       getAlbumInfoForModal(selectedDay);

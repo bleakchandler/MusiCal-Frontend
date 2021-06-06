@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import Header from '../Header/Header.js';
 
-function Home() {
+function LoginScreen() {
   return (
     <div className="login">
       <Header />
@@ -14,4 +14,4 @@ function Home() {
   );
 };
 
-export default connect()(Home);
+export default connect()(LoginScreen);

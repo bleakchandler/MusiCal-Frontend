@@ -107,13 +107,10 @@ const AlbumFormModal = ({
 
         <Modal.Footer>
           <Button onClick={openSpotifyLink}>Spotify</Button>
-
           {checkForAlbumRefreshButton() ? (
             <Button onClick={generateNewRandomAlbum}>New Album</Button>
           ) : null}
-
           <Button onClick={handleGoSongReviewListModal}>Review Songs</Button>
-
           <Button onClick={handleGoToAlbumReviewModal}>Review Album</Button>
         </Modal.Footer>
       </Modal>
