@@ -26,15 +26,15 @@ const AlbumFormModal = ({
   }
 
   function numberOfStars(rating) {
-    if (rating == 1) {
+    if (rating === 1) {
       return "⭑";
-    } else if (rating == 2) {
+    } else if (rating === 2) {
       return "⭑⭑";
-    } else if (rating == 3) {
+    } else if (rating === 3) {
       return "⭑⭑⭑";
-    } else if (rating == 4) {
+    } else if (rating === 4) {
       return "⭑⭑⭑⭑";
-    } else if (rating == 5) {
+    } else if (rating === 5) {
       return "⭑⭑⭑⭑⭑";
     }
   }

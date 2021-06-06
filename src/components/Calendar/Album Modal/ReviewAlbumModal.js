@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
@@ -7,13 +7,10 @@ import "./Modal.css";
 
 const AlbumReviewModal = ({
   hideAlbumRatingModal,
-  showAlbumRatingModal,
   albumRatingModalIsOpen,
   albumInfoForModalForm,
-  albumSongsInfoForModalForm,
   setRerender,
   showModal,
-  setAlbumRating,
   setActivateRerender,
 }) => {
   const [starRating, setStarRating] = useState("");

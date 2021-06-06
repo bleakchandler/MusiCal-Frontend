@@ -8,6 +8,10 @@ import AlbumRatingModal from "../Calendar/Album Modal/ReviewAlbumModal";
 import SongsRatingModal from "../Calendar/Album Modal/ReviewSongModal.js";
 import SongsRatingListModal from "../Calendar/Album Modal/SeeListOfSongsToReview.js";
 import NavBar from "../NavBar/Navbar.js";
+import { getTokenFromURL } from "../Spotify Config/SpotifyConfig.js";
+
+const hash = getTokenFromURL();
+const _token = hash.access_token;
 
 function Body({
   spotify,
@@ -22,7 +26,7 @@ function Body({
   albumRating,
   setAlbumRating,
   setActivateRerender,
-  activateRerender
+  activateRerender,
 }) {
   const [currentDayID, setCurrentDayID] = useState([]);
   const userDays = currentDaysData.map((a) => a.date);
@@ -91,12 +95,25 @@ function Body({
         .then((r) => r.json())
         .then((data) => setCurrentDayID(data.id));
     }
+
+    //get user info
+    if (_token) {
+      fetch(`https://api.spotify.com/v1/me`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + _token,
+        },
+      })
+        .then((r) => r.json())
+        .then((data) => console.log("user data is", data));
+    }
   }, []);
 
   function findDayID() {
     {
       for (let i = 0, l = currentDaysData.length; i < l; i++) {
-        if (currentDate == currentDaysData[i].date) {
+        if (currentDate === currentDaysData[i].date) {
           setCurrentDayID(currentDaysData[i].id);
         }
       }

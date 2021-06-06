@@ -20,7 +20,6 @@ function App() {
   const _token = hash.access_token;
   const [refresh, doRefresh] = useState(0);
   const [albumRating, setAlbumRating] = useState([]);
-
   const [activateRerender, setActivateRerender] = useState([]);
 
   function getRandomSearch() {
@@ -60,6 +59,18 @@ function App() {
           user,
         });
       });
+
+      // if (_token) {
+      //   fetch(`https://api.spotify.com/v1/me`, {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: 'Bearer ' + _token,
+      //     },
+      //   })
+      //     .then((r) => r.json())
+      //     .then((data) => console.log("user data is",data));
+      // }
 
       //where random albums are pulled
       spotify
@@ -117,7 +128,7 @@ function App() {
       );
   }, [activateRerender]);
 
-  if (currentDaysData.length == 0) {
+  if (currentDaysData.length === 0) {
     return <span>Loading...</span>;
   } else {
     return (

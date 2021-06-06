@@ -4,28 +4,21 @@ import moment from "moment";
 import BuildCalendar from "./BuildCalendar";
 import Header from "./CalendarHeader";
 import { useDataLayerValue } from "../DataLayer.js";
-// import Async from "react-async";
 import "./Album Modal/SeeAlbumInfoModal.js";
 
 function Calendar({
-  spotify,
   currentDaysData,
   currentDayID,
   showModal,
   setAlbumInfoForModalForm,
   setRerender,
-  hideModal,
   refresh,
-  rerender,
   setAlbumSongsInfoForModalForm,
   albumInfoForModalForm,
-  albumSongsInfoForModalForm,
   generateNewRandomAlbum,
-  chosenSongToBeReviewed,
-  albumRating,
   activateRerender,
 }) {
-  const [{ albums, albumTracks }, dispatch] = useDataLayerValue();
+  const [{ albums, albumTracks }] = useDataLayerValue();
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
   const [dailyAlbum, setDailyAlbum] = useState([]);
@@ -40,8 +33,8 @@ function Calendar({
 
   function setTodaysAlbumForBox() {
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
-      if (moment().format("YYYY-MM-DD") == currentDaysData[i].date) {
-        if (currentDaysData[i].album != null) {
+      if (moment().format("YYYY-MM-DD") === currentDaysData[i].date) {
+        if (currentDaysData[i].album !== null) {
           setAlbumInfoForBox(currentDaysData[i].album);
         }
       }
@@ -54,7 +47,7 @@ function Calendar({
   }, [value]);
 
   useEffect(() => {
-    if (selectedDay != 0) {
+    if (selectedDay !=- 0) {
       console.log("rerender called", currentDaysData);
       setTodaysAlbumForBox();
       getAlbumInfoForModal(selectedDay);
@@ -118,8 +111,8 @@ function Calendar({
 
   function dailyAlbumImage(day) {
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
-      if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
-        if (currentDaysData[i].album != null) {
+      if (day.format("YYYY-MM-DD") === currentDaysData[i].date) {
+        if (currentDaysData[i].album !== null) {
           return <img src={currentDaysData[i].album.album_art} />;
         }
       }
@@ -129,7 +122,7 @@ function Calendar({
   function getAlbumInfoForModal(day) {
     console.log("day", day.format("YYYY-MM-DD"));
     for (let i = 0, l = currentDaysData.length; i < l; i++) {
-      if (day.format("YYYY-MM-DD") == currentDaysData[i].date) {
+      if (day.format("YYYY-MM-DD") === currentDaysData[i].date) {
         if (currentDaysData[i].album != null) {
           setSelectedDay(day);
           setAlbumSongsInfoForModalForm(
@@ -244,7 +237,7 @@ function Calendar({
     getAlbumInfoForModal(day);
   }
 
-  if (dailyAlbum.length == 0 && albumTracks != null) {
+  if (dailyAlbum.length === 0 && albumTracks !== null) {
     chooseRandomAlbum();
     return <span>Loading...</span>;
   } else
