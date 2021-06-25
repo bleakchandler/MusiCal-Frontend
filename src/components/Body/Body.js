@@ -106,7 +106,7 @@ function Body({
         },
       })
         .then((r) => r.json())
-        .then((data) => console.log("user data is", data));
+        .then((data) => console.log("user name is", data.display_name));
     }
   }, []);
 
