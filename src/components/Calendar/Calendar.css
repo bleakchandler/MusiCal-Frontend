@@ -68,7 +68,6 @@
   font-weight: 600;
   color: white;
   font-size: 3rem;
-
   position: absolute;
   text-align: left;
   left: 3%;
@@ -120,7 +119,6 @@
   background: rgb(50, 50, 50);
   background-size: 400% 400%;
   font-size: 1.2rem;
-
   animation: gradient 15s ease infinite;
   text-align: center;
   min-height: 2rem;
@@ -194,14 +192,11 @@
   position: relative;
   /* margin: 2px; */
   /* border: 4px inner; */
-
   /* border-radius: 20%; */
-
   width: calc(100% / 7);
   /* height: 44px; */
   display: inline-block;
   /* border-color: rgb(201, 50, 50); */
-
   box-sizing: border-box;
   z-index: 1;
   background-color: rgb(40, 40, 41);
@@ -254,10 +249,7 @@
   /* top: 10px; */
   border-radius: 50%;
   /* 
-
-  wi
   max-width: 20px;
-  
   max-height: 20px; */
   /* padding: 8px; */
   top: 34px;
@@ -266,20 +258,17 @@
   /* line-height: 44px !important; */
   width: 30px !important;
   border: 4px solid;
-
   border-color: rgb(50, 50, 50);
   background: rgb(50, 50, 50);
   /* border-width: thin medium thick 10px; */
   /* color: white; */
   /* box-sizing: initial; */
-
   /* text-align: center; */
   /* line-height: 1; */
   box-sizing: content-box;
   /* white-space: nowrap; */
   filter: blur(4);
   opacity: 100%;
-
   /* font-size:20px; */
 }
 
@@ -289,7 +278,6 @@
   position: relative;
   /* color: var(--black); */
   z-index: 100;
-
   /* color: black; */
 }
 
@@ -299,7 +287,6 @@
   position: relative;
   /* color: var(--black); */
   z-index: 100;
-
   background-color: white;
   /* color: var(--black); */
 }
@@ -310,6 +297,5 @@
   position: relative;
   /* color: var(--black); */
   z-index: 100;
-
   color: white;
 }
