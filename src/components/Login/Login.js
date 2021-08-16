@@ -11,7 +11,7 @@ function Login() {
         src={Logo}
         alt="Spotify logo"
       />
-      <a href={ loginUrl }>LOGIN WITH SPOTIFY</a>
+      <a href={ loginUrl }>Login with Spotify</a>
     </div>
   );
 }
