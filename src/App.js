@@ -20,9 +20,7 @@ function App() {
   const [albumRating, setAlbumRating] = useState([]);
   const [activateRerender, setActivateRerender] = useState([]);
   const spotify = new SpotifyWebApi();
-
   const [userData, setUserData] = useState("");
-
 
   function getRandomSearch() {
     // A list of all characters that can be chosen.
@@ -61,12 +59,11 @@ function App() {
           user,
         });
 
-       
         setUserData(user);
-        console.log("HSFHDFJSDF", userData)
+        console.log("user name is", user.display_name)
       });
 
-      console.log("blah blah user", userData)
+      // console.log("blah blah user", userData)
 
       //where random albums are pulled
       spotify
