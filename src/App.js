@@ -47,24 +47,21 @@ function App() {
   useEffect(() => {
     window.location.hash = "";
 
-    if (_token) {
+  if (_token) {
+    dispatch({
+      type: "SET_TOKEN",
+      token: _token,
+    });
+    spotify.setAccessToken(_token);
+    spotify.getMe().then((user) => {
       dispatch({
-        type: "SET_TOKEN",
-        token: _token,
-      });
-      spotify.setAccessToken(_token);
-      spotify.getMe().then((user) => {
-        dispatch({
-          type: "SET_USER",
-          user,
-        });
-
-        setUserData(user);
-        console.log("user name is", user.display_name)
+        type: "SET_USER",
+        user,
       });
 
-      // console.log("blah blah user", userData)
-
+      setUserData(user);
+    });
+    
       //where random albums are pulled
       spotify
         .searchAlbums(getRandomSearch(), { limit: 1, offset: randomOffset })
@@ -83,7 +80,7 @@ function App() {
             });
         });
     }
-  }, []);
+  }, [_token, dispatch]); // Include token and dispatch in the dependency array
 
   function generateNewRandomAlbum() {
     spotify
@@ -105,21 +102,19 @@ function App() {
       });
   }
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/days`)
-      .then((r) => r.json())
-      .then((data) =>
-        setCurrentDaysData(data.filter((dayObj) => dayObj.user_id === 1))
-      );
-  }, [rerender]);
+  const fetchData = (url, dependencyArray) => {
+    return () => {
+      fetch(url)
+        .then((r) => r.json())
+        .then((data) => setCurrentDaysData(data.filter((dayObj) => dayObj.user_id === 1)));
+    };
+  };
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/days`)
-      .then((r) => r.json())
-      .then((data) =>
-        setCurrentDaysData(data.filter((dayObj) => dayObj.user_id === 1))
-      );
-  }, [activateRerender]);
+const fetchDataForRerender = fetchData("http://localhost:3000/days", [rerender]);
+const fetchDataForActivateRerender = fetchData("http://localhost:3000/days", [activateRerender]);
+
+useEffect(fetchDataForRerender, [rerender]);
+useEffect(fetchDataForActivateRerender, [activateRerender]);
 
   if (currentDaysData.length === 0) {
     return <span>Loading...</span>;

@@ -13,6 +13,9 @@ import { getTokenFromURL } from "../Spotify Config/SpotifyConfig.js";
 const hash = getTokenFromURL();
 const _token = hash.access_token;
 
+console.log("WORKS");
+
+
 function Body({
   spotify,
   todaysDate,
@@ -79,6 +82,8 @@ function Body({
   };
 
   useEffect(() => {
+  console.log('Body component mounted');
+
     if (currentDayID.length === 0) {
       fetch(`http://localhost:3000/days`, {
         method: "POST",

@@ -11,15 +11,29 @@ const scopes = [
 ];
 
 export const getTokenFromURL = () => {
-  return window.location.hash
-    .substring(1)
-    .split("&")
-    .reduce((initial, item) => {
-      let parts = item.split("=");
-      initial[parts[0]] = decodeURIComponent(parts[1]);
-      return initial;
-    }, {});
+  try {
+    const token = window.location.hash.substring(1).split("&")
+      .reduce((initial, item) => {
+        const parts = item.split("=");
+        initial[parts[0]] = decodeURIComponent(parts[1]);
+        return initial;
+      }, {});
+
+    console.log("Token from URL:", token);
+    return token;
+  } catch (error) {
+    console.error("Error extracting token from URL:", error);
+    return null; // or handle the error appropriately
+  }
 };
+
+
+
+// const test =`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+//   "%20"
+// )}&response_type=token&show_dialog=true`;
+
+// console.log("test", test)
 
 export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
   "%20"
