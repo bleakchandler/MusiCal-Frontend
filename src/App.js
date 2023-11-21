@@ -6,12 +6,12 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { useDataLayerValue } from "./components/DataLayer.js";
 import Body from "./components/Body/Body.js";
 import { ChakraProvider } from "@chakra-ui/react";
+import useCustomFetch from './CustomFetch'; // Import the custom fetch hook
 
 function App() {
   const [{ token }, dispatch] = useDataLayerValue();
   const randomOffset = Math.floor(Math.random() * 100);
   const [todaysDate] = useState("");
-  const [currentDaysData, setCurrentDaysData] = useState("");
   const [rerender, setRerender] = useState([]);
   const [newRandomAlbum] = useState([]);
   const hash = getTokenFromURL();
@@ -102,21 +102,20 @@ function App() {
       });
   }
 
-  const fetchData = (url, dependencyArray) => {
-    return () => {
-      fetch(url)
-        .then((r) => r.json())
-        .then((data) => setCurrentDaysData(data.filter((dayObj) => dayObj.user_id === 1)));
-    };
+  const { data: fetchedDaysData, loading: daysLoading, fetchData: fetchDaysData } = useCustomFetch(
+    'http://localhost:3000/days'
+  );
+
+  const fetchDataForRerender = () => {
+    fetchDaysData((dayObj) => dayObj.user_id === 1);
   };
 
-const fetchDataForRerender = fetchData("http://localhost:3000/days", [rerender]);
-const fetchDataForActivateRerender = fetchData("http://localhost:3000/days", [activateRerender]);
+  const fetchDataForActivateRerender = () => {
+    fetchDaysData();
+  };
 
-useEffect(fetchDataForRerender, [rerender]);
-useEffect(fetchDataForActivateRerender, [activateRerender]);
 
-  if (currentDaysData.length === 0) {
+  if (daysLoading || !fetchedDaysData) {
     return <span>Loading...</span>;
   } else {
     return (
@@ -128,7 +127,7 @@ useEffect(fetchDataForActivateRerender, [activateRerender]);
               spotify={spotify}
               doRefresh={doRefresh}
               todaysDate={todaysDate}
-              currentDaysData={currentDaysData}
+              currentDaysData={fetchedDaysData}
               setRerender={setRerender}
               generateNewRandomAlbum={generateNewRandomAlbum}
               newRandomAlbum={newRandomAlbum}
