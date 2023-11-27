@@ -102,21 +102,13 @@ function App() {
       });
   }
 
-  const { data: fetchedDaysData, loading: daysLoading, fetchData: fetchDaysData } = useCustomFetch(
-    'http://localhost:3000/days'
-  );
+  const daysEndpoint = 'http://localhost:3000/days';
 
-  const fetchDataForRerender = () => {
-    fetchDaysData((dayObj) => dayObj.user_id === 1);
-  };
-
-  const fetchDataForActivateRerender = () => {
-    fetchDaysData();
-  };
+  const { data: isDaysDataFetched, loading: daysLoading, fetchData: fetchDaysData } = useCustomFetch(daysEndpoint);
 
 
-  if (daysLoading || !fetchedDaysData) {
-    return <span>Loading...</span>;
+  if (daysLoading || !isDaysDataFetched) {
+    return <span>Loading...</span>; 
   } else {
     return (
       <ChakraProvider>
@@ -127,7 +119,7 @@ function App() {
               spotify={spotify}
               doRefresh={doRefresh}
               todaysDate={todaysDate}
-              currentDaysData={fetchedDaysData}
+              currentDaysData={isDaysDataFetched}
               setRerender={setRerender}
               generateNewRandomAlbum={generateNewRandomAlbum}
               newRandomAlbum={newRandomAlbum}
@@ -147,3 +139,6 @@ function App() {
 }
 
 export default App;
+
+
+

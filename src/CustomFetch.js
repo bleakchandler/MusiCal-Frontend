@@ -7,22 +7,27 @@ function useCustomFetch(url) {
   useEffect(() => {
     let isMounted = true;
 
-    setLoading(true);
-    fetch(url)
-      .then((response) => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const response = await fetch(url);
+
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json();
-      })
-      .then((result) => {
+
+        const result = await response.json();
+
         if (isMounted) {
           setData(result);
           setLoading(false);
         }
-      })
-      .catch((error) => {
-      });
+      } catch (error) {
+        console.error('Error occurred:', error);
+      }
+    }
+
+    fetchData();
 
     return () => {
       isMounted = false;
